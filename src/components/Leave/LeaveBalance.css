@@ -1,0 +1,79 @@
+/* LeaveBalance.css */
+.leave-balance {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  @media (min-width: 768px) {
+    .leave-balance {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  
+  .balance-card {
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    border: 1px solid #f3f4f6;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  }
+  
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+  }
+  
+  .leave-type {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .leave-type-icon {
+    color: #2563eb;
+  }
+  
+  .leave-type-text {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: #111827;
+  }
+  
+  .remaining-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    background-color: #eff6ff;
+    color: #1e40af;
+  }
+  
+  .progress-container {
+    margin-top: 0.5rem;
+  }
+  
+  .progress-bar {
+    width: 100%;
+    height: 0.5rem;
+    background-color: #e5e7eb;
+    border-radius: 0.25rem;
+    overflow: hidden;
+  }
+  
+  .progress-fill {
+    height: 100%;
+    background-color: #2563eb;
+    transition: width 0.3s ease;
+  }
+  
+  .progress-text {
+    margin-top: 0.25rem;
+    font-size: 0.75rem;
+    color: #6b7280;
+  }

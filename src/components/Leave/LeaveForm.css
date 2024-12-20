@@ -1,0 +1,122 @@
+/* LeaveForm.css */
+.leave-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .form-label {
+    display: block;
+    font-weight: 500;
+    color: #374151;
+    margin-bottom: 0.25rem;
+  }
+  
+  .form-select {
+    width: 100%;
+    padding: 0.625rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+ 
+    font-size: 1rem;
+  }
+  
+  .date-inputs {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  @media (min-width: 768px) {
+    .date-inputs {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  .input-wrapper {
+    position: relative;
+  }
+  
+  .date-input {
+    width: 100%;
+    padding: 0.625rem 0.625rem 0.625rem 2.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+  }
+  
+  .input-icon {
+    position: absolute;
+    left: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #9ca3af;
+  }
+  
+  .textarea {
+    width: 100%;
+    padding: 0.625rem 0.625rem 0.625rem 2.5rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.375rem;
+    min-height: 100px;
+    font-size: 1rem;
+    resize: vertical;
+  }
+  
+  .alert {
+    display: flex;
+    padding: 1rem;
+    background-color: #eff6ff;
+    border-left: 4px solid #60a5fa;
+    margin-bottom: 1.5rem;
+  }
+  
+  .alert-icon {
+    color: #60a5fa;
+  }
+  
+  .alert-content {
+    margin-left: 0.75rem;
+    color: #1e40af;
+    font-size: 0.875rem;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+  
+  .button {
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  
+  .button-secondary {
+  
+    border: 1px solid #d1d5db;
+    color: #374151;
+  }
+  
+  .button-secondary:hover {
+    background-color: #f9fafb;
+  }
+   
+  .button-primary {
+    background-color: #2563eb;
+    border: 1px solid transparent;
+    color: white;
+  }
+  
+  .button-primary:hover {
+    background-color: #1d4ed8;
+  }
