@@ -8,7 +8,7 @@ const Column= ({ column,data, setOpen,}) => {
 //     e.preventDefault();
 //   };
 
-const filteredTasks = data.filter((task) => task?.status === column?.title);
+const filteredTasks = data.filter((task) => task?.status === column);
 console.log(data,"inside column")
 
   return (
@@ -18,7 +18,7 @@ console.log(data,"inside column")
     //   onDrop={(e) => onDrop(e, column.id)}
     >
       <div className="flex items-center justify-between mb-4">
-        <h3 className="font-semibold text-gray-700">{column?.label}</h3>
+        <h3 className="font-semibold text-gray-700">{column}</h3>
         {/* <span className="text-sm text-gray-500">{column.tasks.length}</span> */}
       </div>
 

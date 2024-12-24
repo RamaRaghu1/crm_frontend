@@ -1,14 +1,14 @@
 import React from 'react';
 import {Paperclip, MessageCircle,Clock,GripVertical} from 'lucide-react'
-
+import { useNavigate } from 'react-router-dom';
 
 
 const TaskCard= ({ task}) => {
-
-const {title, description, endDate, startDate}=task;
+const navigate=useNavigate();
+const {title, description, endDate, startDate, _id}=task;
 
   return (
-    <div className="group bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all">
+    <div className="group bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-all cursor-pointer" onClick={()=>navigate(`/project/${_id}`)}>
     <div className="opacity-0 group-hover:opacity-100 transition-opacity px-4 pt-2">
       <GripVertical className="w-5 h-5 text-gray-400 cursor-grab" />
     </div>

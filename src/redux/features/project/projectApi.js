@@ -10,6 +10,13 @@ export const projectApi=apiSlice.injectEndpoints({
                 credentials:"include",
               }),
         }),
+        getProjectById:builder.query({
+            query: (id) => ({
+                url: `/project/get-project/${id}`,
+                method: "GET",
+                credentials:"include",
+              }),
+        }),
         createProject:builder.mutation({
             query: (data) => ({
                 url: "/project/create-project",
@@ -21,4 +28,4 @@ export const projectApi=apiSlice.injectEndpoints({
     })
 })
 
-export const {useGetAllProjectsQuery,useCreateProjectMutation}=projectApi;
+export const {useGetAllProjectsQuery,useCreateProjectMutation, useGetProjectByIdQuery}=projectApi;

@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import Select from "react-select";
 import { useCreateProjectMutation } from "../../redux/features/project/projectApi";
 
-const CreateProject = ({setOpen}) => {
+const CreateProject = ({setOpen, refetch}) => {
   const [selectedDevelopers, setSelectedDevelopers] = useState([]);
   const [selectedLead, setSelectedLead] = useState({});
   const [projectData, setProjectData] = useState({
@@ -18,7 +18,7 @@ const CreateProject = ({setOpen}) => {
   });
   const { data } = useUsersListQuery();
 
-  const [CreateProject, { isSuccess,data:projectCreateData, error }] = useCreateProjectMutation();
+  const [CreateProject, { isSuccess,data:projectCreateData, error  }] = useCreateProjectMutation();
 
   console.log(selectedDevelopers);
   const handleChange = (e) => {
@@ -46,7 +46,7 @@ const CreateProject = ({setOpen}) => {
   useEffect(() => {
     if (isSuccess && projectCreateData.success === true) {
       toast.success(projectCreateData.message);
-
+refetch();
       setOpen(false);
     }
 

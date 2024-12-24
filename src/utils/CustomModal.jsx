@@ -5,8 +5,8 @@ const CustomModel = ({
  
   open,
   setOpen,
-
-  component: Component,
+children
+  // component: Component,
 }) => {
   return (
    
@@ -24,7 +24,8 @@ const CustomModel = ({
            
           <Box className="absolute   top-[50%] left-[50%]  -translate-x-1/2 -translate-y-1/2 md:w-[600px] w-[90%]  bg-white h-[90vh] rounded-[8px] outline-none shadow p-4 overflow-y-scroll">
           <X size={35} className="text-indigo-600 font-bold p-0 hover:cursor-pointer absolute right-0 top-0" onClick={()=>setOpen(false)}/>
-            <Component setOpen={setOpen} /> 
+            {/* <Component setOpen={setOpen} />  */}
+            {children}
           </Box>
         </Modal>
       </div>
