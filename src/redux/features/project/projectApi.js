@@ -2,6 +2,7 @@ import { apiSlice } from "../api/apiSlice";
 
 
 export const projectApi=apiSlice.injectEndpoints({
+    tagTypes: ["Project"],
     endpoints:(builder)=>({
         getAllProjects:builder.query({
             query: () => ({
@@ -16,6 +17,7 @@ export const projectApi=apiSlice.injectEndpoints({
                 method: "GET",
                 credentials:"include",
               }),
+              providesTags: (result, error, id) => [{ type: "Project", id }],
         }),
         createProject:builder.mutation({
             query: (data) => ({
@@ -24,8 +26,17 @@ export const projectApi=apiSlice.injectEndpoints({
                 body:data,
                 credentials:"include",
               }),
+        }),
+        removeDeveloper:builder.mutation({
+            query: ({id, data}) => ({
+                url: `/project/remove-dev/${id}`,
+                method: "POST",
+                body:data,
+                credentials:"include",
+              }),
+              invalidatesTags: (result, error, { id }) => [{ type: "Project", id }],
         })
     })
 })
 
-export const {useGetAllProjectsQuery,useCreateProjectMutation, useGetProjectByIdQuery}=projectApi;
+export const {useGetAllProjectsQuery,useCreateProjectMutation, useGetProjectByIdQuery, useRemoveDeveloperMutation}=projectApi;

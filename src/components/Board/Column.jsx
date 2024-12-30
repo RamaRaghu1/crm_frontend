@@ -7,8 +7,8 @@ const Column= ({ column,data, setOpen,}) => {
 //   const handleDragOver = (e: React.DragEvent) => {
 //     e.preventDefault();
 //   };
-
-const filteredTasks = data.filter((task) => task?.status === column);
+console.log("jhggyuh", data)
+const filteredTasks = data?.filter((task) => task?.status === column);
 console.log(data,"inside column")
 
   return (
@@ -32,13 +32,18 @@ console.log(data,"inside column")
         ))}
       </div> 
 
-      <button
+    {column && column != "Completed" ?
+    
+    <button
         onClick={() => setOpen(true)}
         className="mt-4 w-full py-2 flex items-center justify-center text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-md transition-colors"
       >
         <Plus size={20} className="mr-2" />
-        Add Task
+        Add Project
       </button>
+
+      : <></>
+  }
     </div>
   );
 };

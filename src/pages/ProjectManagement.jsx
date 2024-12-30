@@ -14,11 +14,12 @@ const ProjectManagement = () => {
     {},
     { refetchOnMountOrArgChange: true }
   );
-  let set = new Set();
+  // let set = new Set();
 
-  projectData?.map((dt) => set.add(dt.status));
+  // projectData?.map((dt) => set.add(dt.status));
 
-  const columns = Array.from(set);
+  // const columns = dArray.from(set);
+  const columns=["To Do", "In Progress", "Completed"]
  
   console.log("set", columns);
  
