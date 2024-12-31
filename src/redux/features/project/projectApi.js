@@ -35,8 +35,17 @@ export const projectApi=apiSlice.injectEndpoints({
                 credentials:"include",
               }),
               invalidatesTags: (result, error, { id }) => [{ type: "Project", id }],
+        }),
+        assignDeveloper:builder.mutation({
+            query: ({id, data}) => ({
+                url: `/project/add-dev/${id}`,
+                method: "POST",
+                body:data,
+                credentials:"include",
+              }),
+            //   invalidatesTags: (result, error, { id }) => [{ type: "Project", id }],
         })
     })
 })
 
-export const {useGetAllProjectsQuery,useCreateProjectMutation, useGetProjectByIdQuery, useRemoveDeveloperMutation}=projectApi;
+export const {useGetAllProjectsQuery,useCreateProjectMutation, useGetProjectByIdQuery, useRemoveDeveloperMutation, useAssignDeveloperMutation}=projectApi;

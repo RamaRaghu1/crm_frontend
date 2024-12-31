@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import Select from "react-select";
 import { useParams } from "react-router-dom";
 import { useLoadUserQuery } from "../../redux/features/api/apiSlice";
-// import { useAssignTaskMutation } from "../../redux/features/project/projectApi";
+
 import { useCreateTaskMutation } from "../../redux/features/task/taskApi";
 
 const AssignTask = ({ setCreateTaskOpen, project, refetch }) => {
@@ -14,13 +14,13 @@ const AssignTask = ({ setCreateTaskOpen, project, refetch }) => {
     refetchOnReconnect: false,
     refetchOnFocus: false,
   });
-   const [
-      createTask,
-      { isSuccess: createTaskSuccess, data: createTaskData, error },
-    ] = useCreateTaskMutation();
+  const [
+    createTask,
+    { isSuccess: createTaskSuccess, data: createTaskData, error },
+  ] = useCreateTaskMutation();
   const [userData, setUserData] = useState({});
-  console.log("me", userData);
-const {id}=useParams()
+
+  const { id } = useParams();
   const [selectedDeveloper, setSelectedDeveloper] = useState(null);
   console.log("sele", selectedDeveloper);
   const [taskData, setTaskData] = useState({
@@ -30,7 +30,6 @@ const {id}=useParams()
     endDate: "",
     priority: "Low",
     projectId: project?._id,
-    // assignedBy:userData?._id,
   });
   const { data } = useUsersListQuery();
 
@@ -61,10 +60,11 @@ const {id}=useParams()
     await createTask(taskData);
   };
 
- useEffect(() => {
+  useEffect(() => {
     if (createTaskSuccess && createTaskData.success === true) {
       toast.success(createTaskData.message);
-      refetch();
+      // refetch();
+      window.location.reload();
       setCreateTaskOpen(false);
     }
 
@@ -73,7 +73,6 @@ const {id}=useParams()
       toast.error(errorMessage.data.message);
     }
   }, [createTaskSuccess, createTaskData, error]);
-
 
   const developer = data?.data
     .filter((dt) => dt.position.includes("developer"))

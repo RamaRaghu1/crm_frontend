@@ -5,11 +5,19 @@ import ProjectHeader from "../components/Project/ProjectHeader";
 import { useGetProjectByIdQuery, useRemoveDeveloperMutation } from "../redux/features/project/projectApi";
 import { useParams } from "react-router-dom";
 import { useCreateTaskMutation } from "../redux/features/task/taskApi";
-
+import { useUsersListQuery } from "../redux/features/user/userApi";
 import toast from "react-hot-toast";
 
 
 const ProjectDetails = () => {
+    const { data :userData} = useUsersListQuery();
+    const developers = userData?.data
+    .filter((dt) => dt.position.includes("developer"))
+    .map((dt) => ({
+      value: dt._id,
+      label: dt.name,
+    }));
+
   const [open, setOpen]=useState(false);
   const { id } = useParams();
 
@@ -51,7 +59,7 @@ const ProjectDetails = () => {
 
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
-      <ProjectHeader project={projectData} onEdit={handleEditProject} refetch={refetch} />
+      <ProjectHeader developers={developers} project={projectData} onEdit={handleEditProject} refetch={refetch} setOpen={setOpen}/>
       <DevelopersList
         developers={projectData?.developers}
         onAddDeveloper={handleAddDeveloper}

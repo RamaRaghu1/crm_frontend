@@ -61,9 +61,7 @@ const ProjectManagement = () => {
               column={column}
               data={projectData}
               setOpen={setOpen}
-              // onDragStart={handleDragStart}
-              // onDrop={handleDrop}
-              // onAddTask={handleAddTask}
+            
             />
           ))}
         </div>

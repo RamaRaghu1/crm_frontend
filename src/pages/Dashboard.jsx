@@ -4,6 +4,7 @@ import Announcement from '../components/Profile/Announcement'
 import Sidebar from '../components/Sidebar/Sidebar'
 import { useLoadUserQuery } from '../redux/features/api/apiSlice'
 import GreetingCard from '../components/Profile/GreetingCard'
+import Menu from "../components/Profile/Menu"
 
 const Dashboard = () => {
 
@@ -25,7 +26,7 @@ const Dashboard = () => {
     <main className="lg:ml-64 min-h-screen p-8">
       <div className="max-w-7xl mx-auto space-y-8">
         <GreetingCard name={data?.name} />
-        
+        <Menu/>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="bg-white rounded-lg shadow p-6">
            <Holidays/>

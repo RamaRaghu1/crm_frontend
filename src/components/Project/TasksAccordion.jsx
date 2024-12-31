@@ -26,7 +26,7 @@ const TasksAccordion = ({ tasks }) => {
   ];
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 md:mx-20 m-4">
       <h2 className="text-xl font-semibold text-gray-900 mb-4">Project Tasks</h2>
       {sections.map((section) => (
         <div key={section.id} className="border rounded-lg overflow-hidden">

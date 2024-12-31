@@ -6,6 +6,7 @@ import { Modal, Box } from "@mui/material";
 import toast from "react-hot-toast";
 import { useRemoveDeveloperMutation } from "../../redux/features/project/projectApi";
 import { ref } from "yup";
+import NewModal from "../../utils/NewModal";
 
 const DevelopersList = ({ developers, onAddDeveloper, refetch }) => {
   const { id } = useParams();
@@ -17,9 +18,11 @@ const DevelopersList = ({ developers, onAddDeveloper, refetch }) => {
       error: removeDevError,
     },
   ] = useRemoveDeveloperMutation();
+
+
   const [open, setOpen] = useState(false);
   const [devId, setDevId] = useState(null);
- 
+
 
   const handleRemoveDeveloper = async ({ id, devId }) => {
     await removeDeveloper({ id, data: { devId } });
@@ -27,22 +30,23 @@ const DevelopersList = ({ developers, onAddDeveloper, refetch }) => {
   useEffect(() => {
     if (removeSuccess && removeSuccessData?.success) {
       toast.success(removeSuccessData.message);
-      refetch(); 
+      // refetch();
+      window.location.reload()
       setDevId(null);
       setOpen(false);
     }
-  
+
     if (removeDevError) {
-      const errorMessage = removeDevError?.data?.message || "Failed to remove developer.";
+      const errorMessage =
+        removeDevError?.data?.message || "Failed to remove developer.";
       toast.error(errorMessage);
     }
   }, [removeSuccess, removeSuccessData, removeDevError, refetch]);
-  
+
   return (
-    <div className="mb-8">
+    <div className="mb-8 md:mx-20 m-4">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold text-gray-900">Project Team</h2>
-       
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {developers?.map((developer) => (
@@ -77,34 +81,34 @@ const DevelopersList = ({ developers, onAddDeveloper, refetch }) => {
       </div>
 
       {open && (
-        <Modal
+        <NewModal
           open={open}
-          onClose={() => setOpen(!open)}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
-        >
-          <Box className="absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2 outline-none w-[450px]  bg-white rounded-[8px] shadow p-4">
-            <h1
-              className={`md:text-[25px]  text-[20px] text-black  font-semibold font-poppins text-center py-2`}
-            >
-              Are you sure you want to remove this developer from this project?
-            </h1>
-            <div className="flex w-full items-center justify-evenly mb-6 mt-4">
-              <div
-                className={`flex flex-row justify-center items-center  py-3 px-6 rounded-full cursor-pointer  min-h-[45px] text-[16px] font-poppins font-bold !w-[120px] h-[30px] bg-green-500`}
-                onClick={() => setOpen(!open)}
+          setOpen={setOpen}
+          children={
+            <>
+              <h1
+                className={`md:text-[25px]  text-[20px] text-black  font-semibold font-poppins text-center py-2`}
               >
-                Cancel
+                Are you sure you want to remove this developer from this
+                project?
+              </h1>
+              <div className="flex w-full items-center justify-evenly mb-6 mt-4">
+                <div
+                  className={`flex flex-row justify-center items-center  py-3 px-6 rounded-full cursor-pointer  min-h-[45px] text-[16px] font-poppins font-bold !w-[120px] h-[30px] bg-green-500`}
+                  onClick={() => setOpen(!open)}
+                >
+                  Cancel
+                </div>
+                <div
+                  className={`flex flex-row justify-center items-center py-3 px-6 rounded-full cursor-pointer  min-h-[45px]  text-[16px] font-poppins font-bold !w-[120px] h-[30px] bg-red-500`}
+                  onClick={() => handleRemoveDeveloper({ id, devId })}
+                >
+                  Delete
+                </div>
               </div>
-              <div
-                className={`flex flex-row justify-center items-center py-3 px-6 rounded-full cursor-pointer  min-h-[45px]  text-[16px] font-poppins font-bold !w-[120px] h-[30px] bg-red-500`}
-                onClick={() => handleRemoveDeveloper({ id, devId })}
-              >
-                Delete
-              </div>
-            </div>
-          </Box>
-        </Modal>
+            </>
+          }
+        />
       )}
     </div>
   );

@@ -19,7 +19,7 @@ const { email, name, _id } = data;
 
 
 const navigation = [
-  { name: 'Dashboard', icon: Home, href: '/dashboard' },
+  { name: 'Dashboard', icon: Home, href: '/' },
   { name: 'Project', icon: BarChart2, href: '#' },
   { name: 'Task', icon: Users, href: '#' },
   { name: 'Leave', icon: Settings, href: `/applied-leaves/${_id}` },

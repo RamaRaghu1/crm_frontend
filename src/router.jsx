@@ -21,8 +21,13 @@ export const router = createBrowserRouter([
     path: "/",
     element: <ProtectedRoute />,
     children: [
+
       {
         path: "/",
+        element: <Dashboard />,
+      },
+      {
+        path: "/users",
         element: <Employees />,
       },
       {
@@ -41,10 +46,7 @@ export const router = createBrowserRouter([
         path: "/attendance",
         element: <Attendance />,
       },
-      {
-        path: "/dashboard",
-        element: <Dashboard />,
-      },
+    
       {
         path: "/add-employee",
         element: <AddEmployee />,
