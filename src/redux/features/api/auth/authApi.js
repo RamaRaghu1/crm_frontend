@@ -27,27 +27,26 @@ const authApi = apiSlice.injectEndpoints({
         }
       },
     }),
-    userLoggedOut: builder.query({
-        query: () => ({
-
-          url: "/users/logout",
-          method: "POST",
-       
-        }),
-        async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-          
-        
-          try {
-           
-            dispatch(
-              userLoggedOut()
-            );
-          } catch (error) {
-            console.log(error);
-          }
-        },
+    logOut: builder.query({
+      query: () => ({
+        url: "/users/logout",
+        method: "GET",
+        credentials: "include",
       }),
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        
+      
+        try {
+         
+          dispatch(
+            userLoggedOut()
+          );
+        } catch (error) {
+          console.log(error);
+        }
+      },
+    }),
   }),
 });
 
-export const { useLogInMutation,useUserLoggedOutMutation} = authApi;
+export const { useLogInMutation, useLogOutQuery} = authApi;

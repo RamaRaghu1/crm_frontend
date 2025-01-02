@@ -14,14 +14,13 @@ import { ProtectedRoute } from "./App.jsx";
 import ProjectManagement from "./pages/ProjectManagement.jsx";
 import CreateProject from "./components/Project/CreateProject.jsx";
 import ProjectDetails from "./pages/ProjectDetails.jsx";
-// import Board from "./components/Project/ProjectColumn.jsx";
+
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <ProtectedRoute />,
     children: [
-
       {
         path: "/",
         element: <Dashboard />,

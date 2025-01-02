@@ -1,22 +1,45 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, X, Home, Settings, Users, BarChart2, HelpCircle,LogOut,Calendar  } from 'lucide-react';
 import NavItem from './NavItem';
 import logo from "../../assets/logo.jpeg"
 import userImg from "../../assets/user.png";
 import { useNavigate } from 'react-router-dom';
-
+import { useLogOutQuery } from '../../redux/features/api/auth/authApi.js';
+import toast from 'react-hot-toast';
 
 
 
 export default function Sidebar({data}) {
 
   const navigate=useNavigate();
+  const [logOut, setLogOut] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+ 
+  const { refetch, data:logoutData, isSuccess } = useLogOutQuery(undefined, {
+    skip: !logOut,
+  });
+ 
 
+  useEffect(() => {
+    if (logOut) {
+      refetch().then(() => {
+     
+      }).catch((error) => {
+        console.error("Error logging out:", error);
+      }).finally(() => {
+        setLogOut(false);
+      });
+    }
+  }, [logOut, refetch]);
 
 console.log("sideDa",data)
 const { email, name, _id } = data;
-
+useEffect(()=>{
+  if(isSuccess && logoutData.success==true){
+    toast.success("Logged out successfully!")
+    navigate("/login")
+  }
+},[isSuccess, logoutData])
 
 const navigation = [
   { name: 'Dashboard', icon: Home, href: '/' },
@@ -28,7 +51,11 @@ const navigation = [
   { name: 'Logout', icon: LogOut , href: '#' },
 ];
 
+const logOutHandler=()=>{
+  console.log("jkhgftuh")
+  setLogOut(true);
 
+}
 
   return (
     <>
@@ -57,14 +84,23 @@ const navigation = [
 
           {/* Navigation */}
           <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
-            {navigation.map((item) => (
-              <NavItem
-                key={item.name}
-                name={item.name}
-                href={item.href}
-                icon={item.icon}
-              />
-            ))}
+            {navigation.map((item) =>
+              item.name === 'Logout' ? (
+                <NavItem
+                  key={item.name}
+                  name={item.name}
+                  icon={item.icon}
+                  onClick={logOutHandler} 
+                />
+              ) : (
+                <NavItem
+                  key={item.name}
+                  name={item.name}
+                  href={item.href}
+                  icon={item.icon}
+                />
+              )
+            )}
           </nav>
 
           {/* Profile */}
