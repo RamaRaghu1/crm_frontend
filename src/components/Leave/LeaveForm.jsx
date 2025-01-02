@@ -36,7 +36,7 @@ useEffect(() => {
 
     if (isSuccess && data) {
       toast.success(data.message);
-      navigate("/applied-leaves")
+      navigate(`/applied-leaves/${uid}`)
     } 
 
     if (error) {
