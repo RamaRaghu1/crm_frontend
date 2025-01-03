@@ -26,7 +26,7 @@ useEffect(()=>{
 
 useEffect(()=>{
 
-    if(isSuccess && data.success===true ){
+    if(isSuccess && data.success ){
       //  localStorage.setItem("accessToken", data?.data?.accessToken)
         toast.success(data.message);
       
@@ -36,7 +36,7 @@ useEffect(()=>{
     if (error) {
    
         const errorMessage = error;
-        toast.error(errorMessage.data.message);
+        toast.error(errorMessage?.data?.message);
       
     }
 },[isSuccess,data,error])

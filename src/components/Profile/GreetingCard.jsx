@@ -10,7 +10,7 @@ const GreetingCard = ({name}) => {
             greeting: 'Good Morning',
             message: 'Start your day with a smile!',
             Icon: Sunrise,
-            bgColor: 'from-orange-50 to-yellow-50',
+            bgColor: 'from-orange-100 to-yellow-100',
             iconColor: 'text-orange-500',
           };
         } else if (hour < 17) {

@@ -9,13 +9,13 @@ credentials:"include",
 
   }),
   endpoints: (builder) => ({
-    refreshToken: builder.mutation({
-      query: () => ({
-        url: "/users/refresh-token",
-        method: "POST",
-        credentials: "include",
-      }),
-    }),
+    // refreshToken: builder.mutation({
+    //   query: () => ({
+    //     url: "/users/refresh-token",
+    //     method: "POST",
+    //     credentials: "include",
+    //   }),
+    // }),
     loadUser: builder.query({
       query: () => ({
         url: "/users/me",
@@ -27,7 +27,7 @@ credentials:"include",
   }),
 });
 
-export const { useRefreshTokenMutation, useLoadUserQuery } = apiSlice;
+export const {  useLoadUserQuery } = apiSlice;
 
 
 
