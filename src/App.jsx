@@ -24,7 +24,7 @@ export const isAuthenticated = () => {
       const timeToExpire = (decodedToken.exp - currentTime) * 1000;
       setTimeout(() => {
         console.warn("Token expired, redirecting to login.");
-        localStorage.removeItem("accessToken");
+        localStorage.clear();
         window.location.href = "/login"; 
       }, timeToExpire);
 
@@ -37,7 +37,7 @@ export const isAuthenticated = () => {
     return false;
   } catch (error) {
     console.error("Invalid token", error);
-    localStorage.removeItem("accessToken");
+    localStorage.clear();
     return false;
   }
 };
