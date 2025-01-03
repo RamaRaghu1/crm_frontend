@@ -30,14 +30,14 @@ export function Card({ title, description, dueDate, comments, assignee }) {
             </div>
           </div>
           
-          {assignee && (
+          {/* {assignee && (
             <img
               src={assignee.avatar}
               alt={assignee.name}
               className="w-6 h-6 rounded-full ring-2 ring-white"
               title={assignee.name}
             />
-          )}
+          )} */}
         </div>
       </div>
     </div>
