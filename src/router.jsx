@@ -8,13 +8,11 @@ import AppliedLeaves from "./pages/AppliedLeaves.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import EmployeeProfileForm from "./components/UpdateProfile/EmployeeProfileForm.jsx";
 import { createBrowserRouter } from "react-router-dom";
-import App from "./App.jsx";
 import PendingLeaves from "./components/Admin/PendingLeaves.jsx";
 import { AppLayout } from "./App.jsx";
 import ProjectManagement from "./pages/ProjectManagement.jsx";
-import CreateProject from "./components/Project/CreateProject.jsx";
 import ProjectDetails from "./pages/ProjectDetails.jsx";
-import Protected from "./utils/userProtected.jsx";
+
 
 
 export const router = createBrowserRouter([

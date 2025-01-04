@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   accessToken: "",
-  user: "",
+  // user: "",
 };
 const authSlice = createSlice({
   name: "auth",
@@ -16,14 +16,14 @@ const authSlice = createSlice({
       console.log(`token ${JSON.stringify(action.payload.accessToken)}`);
 
       state.accessToken = action.payload.accessToken;
-      state.user = action.payload.data.data.user;
+      // state.user = action.payload.data.data.user;
       console.log("userrrr", action.payload.accessToken);
       // console.log("userrrr", action.payload.data.data.user);
       localStorage.setItem("accessToken", state.accessToken);
     },
     userLoggedOut: (state) => {
       state.accessToken = "";
-      state.user = "";
+      // state.user = "";
       localStorage.clear();
     },
   },
