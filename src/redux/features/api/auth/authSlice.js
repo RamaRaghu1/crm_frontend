@@ -16,8 +16,9 @@ const authSlice = createSlice({
       console.log(`token ${JSON.stringify(action.payload.accessToken)}`);
 
       state.accessToken = action.payload.accessToken;
-      state.user = action.payload.user;
-      console.log("hg", state.accessToken);
+      state.user = action.payload.data.data.user;
+      console.log("userrrr", action.payload.accessToken);
+      // console.log("userrrr", action.payload.data.data.user);
       localStorage.setItem("accessToken", state.accessToken);
     },
     userLoggedOut: (state) => {

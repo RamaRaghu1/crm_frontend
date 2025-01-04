@@ -13,9 +13,9 @@ const Login = () => {
       .required("Please enter your email!"),
     password: Yup.string().required("Please enter your password!").min(6),
   });
-useEffect(()=>{
-  localStorage.clear();
-},[])
+// useEffect(()=>{
+//   localStorage.clear();
+// },[])
   const formik = useFormik({
     initialValues: { email: "", password: "" },
     validationSchema: schema,
@@ -26,7 +26,7 @@ useEffect(()=>{
 
 useEffect(()=>{
 
-    if(isSuccess && data.success ){
+    if(isSuccess && data.success==true ){
       //  localStorage.setItem("accessToken", data?.data?.accessToken)
         toast.success(data.message);
       

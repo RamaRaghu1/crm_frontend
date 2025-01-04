@@ -13,7 +13,7 @@ import authSlice from "./features/api/auth/authSlice.js";
 });
 
 
-// console.log(store.getState());
+console.log(store.getState());
 
 
 const initializeApp = async () => {

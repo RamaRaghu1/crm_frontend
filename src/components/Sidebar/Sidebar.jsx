@@ -51,7 +51,7 @@ const navigation = [
   { name: 'Logout', icon: LogOut , href: '#' },
 ];
 
-const logOutHandler=()=>{
+ const logOutHandler=()=>{
   console.log("jkhgftuh")
   setLogOut(true);
 
@@ -130,3 +130,4 @@ const logOutHandler=()=>{
     </>
   );
 }
+

@@ -10,16 +10,17 @@ import EmployeeProfileForm from "./components/UpdateProfile/EmployeeProfileForm.
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App.jsx";
 import PendingLeaves from "./components/Admin/PendingLeaves.jsx";
-import { ProtectedRoute } from "./App.jsx";
+import { AppLayout } from "./App.jsx";
 import ProjectManagement from "./pages/ProjectManagement.jsx";
 import CreateProject from "./components/Project/CreateProject.jsx";
 import ProjectDetails from "./pages/ProjectDetails.jsx";
+import Protected from "./utils/userProtected.jsx";
 
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <ProtectedRoute />,
+    element: <AppLayout/>,
     children: [
       {
         path: "/",
