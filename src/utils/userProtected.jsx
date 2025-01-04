@@ -1,6 +1,7 @@
 import { Navigate } from "react-router-dom";
 import {jwtDecode} from "jwt-decode";
 import useAuth from "./userAuth";
+import { useSelector } from "react-redux";
 export default function Protected({ children }) {
 //   const token =
   const {token} = useSelector((state)=>state.accessToken)  || localStorage.getItem("accessToken");

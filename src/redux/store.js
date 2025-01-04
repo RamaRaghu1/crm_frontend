@@ -16,12 +16,12 @@ import authSlice from "./features/api/auth/authSlice.js";
 console.log(store.getState());
 
 
-// const initializeApp = async () => {
-//   await store.dispatch(
-//     apiSlice.endpoints.loadUser.initiate({}, { forceRefetch: true })
-//   );
-// };
+const initializeApp = async () => {
+  await store.dispatch(
+    apiSlice.endpoints.loadUser.initiate({}, { forceRefetch: true })
+  );
+};
 
-// initializeApp();
+initializeApp();
 
 export default store;
