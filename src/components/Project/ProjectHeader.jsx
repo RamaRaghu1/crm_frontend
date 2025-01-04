@@ -5,7 +5,7 @@ import AssignTask from "../task/AssignTask";
 import CustomModel from "../../utils/CustomModal";
 import Select from "react-select";
 import NewModal from "../../utils/NewModal";
-import { useAssignDeveloperMutation } from "../../redux/features/project/projectApi";
+import { useAssignDeveloperMutation, useDeleteProjectMutation } from "../../redux/features/project/projectApi";
 import { useParams } from "react-router-dom";
 import userImg from "../../assets/user.png"
 
@@ -15,12 +15,13 @@ const ProjectHeader = ({developers, project, onEdit, refetch, setOpen }) => {
   const { title, description, startDate, endDate,  projectLeader } = project;
   const [createTaskOpen, setCreateTaskOpen] = useState(false);
   const [editProjectOpen, setEditProjectOpen] = useState(false);
+  const [deleteProjectOpen, setDeleteProjectOpen] = useState(false);
   const [addDeveloperOpen, setAddDeveloperOpen] = useState(false);
   const [selectedDevelopers, setSelectedDevelopers] = useState(null);
 
 
 const [assignDeveloper, {isSuccess, error, data}]=useAssignDeveloperMutation();
-
+const [deleteProject, {isSucess:deleteSuccess, error:deleteError, data:deleteData}]=useDeleteProjectMutation({});
 
 const devId=selectedDevelopers?.value;
 
@@ -28,6 +29,10 @@ const handleAddDeveloper = async ({ id, devId }) => {
 
   await assignDeveloper({ id, data: { devId} });
 };
+
+const handleDeleteProject= async()=>{
+await deleteProject({id});
+}
 useEffect(() => {
   if (isSuccess && data?.success) {
     toast.success(data.message);
@@ -91,7 +96,7 @@ useEffect(() => {
           <span>Edit Project</span>
         </button>
         <button
-          onClick={onEdit}
+          onClick={()=>setDeleteProjectOpen(true)}
           className="flex items-center gap-2 w-fit px-2 py-2 bg-indigo-100 hover:bg-indigo-200  transition-colors"
         >
           <DeleteIcon size={16} />
@@ -152,6 +157,35 @@ useEffect(() => {
           />
       )}
 
+{deleteProjectOpen && (
+        <NewModal
+          open={open}
+          setOpen={setOpen}
+          children={
+            <>
+              <h1
+                className={`md:text-[25px]  text-[20px] text-black  font-semibold font-poppins text-center py-2`}
+              >
+                Are you sure you want to delete this project?
+              </h1>
+              <div className="flex w-full items-center justify-evenly mb-6 mt-4">
+                <div
+                  className={`flex flex-row justify-center items-center  py-3 px-6 rounded-full cursor-pointer  min-h-[45px] text-[16px] font-poppins font-bold !w-[120px] h-[30px] bg-green-500`}
+                  onClick={() => setDeleteProjectOpen(!deleteProjectOpen)}
+                >
+                  Cancel
+                </div>
+                <div
+                  className={`flex flex-row justify-center items-center py-3 px-6 rounded-full cursor-pointer  min-h-[45px]  text-[16px] font-poppins font-bold !w-[120px] h-[30px] bg-red-500`}
+                  onClick={handleDeleteProject}
+                >
+                  Delete
+                </div>
+              </div>
+            </>
+          }
+        />
+      )}
 
     </div>
   );

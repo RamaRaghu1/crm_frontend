@@ -32,7 +32,7 @@ const TasksAccordion = ({ tasks }) => {
         <div key={section.id} className="border rounded-lg overflow-hidden">
           <button
             onClick={() => setOpenSection(openSection === section.id ? '' : section.id)}
-            className="w-full flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 transition-colors"
+            className="w-full flex items-center justify-between p-4 bg-indigo-100 hover:bg-gray-100 transition-colors"
           >
             <div className="flex items-center gap-2">
               <span className="font-medium">{section.title}</span>
