@@ -18,6 +18,7 @@ const Dashboard = () => {
       }, [isSuccess]);
     
 
+      console.log("newwwwww",userData)
 
 
   return (
@@ -26,7 +27,7 @@ const Dashboard = () => {
     <main className="lg:ml-64 min-h-screen p-8">
       <div className="max-w-7xl mx-auto space-y-8">
         <GreetingCard name={data?.name} />
-        <Menu/>
+        <Menu  user={data}/>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="bg-white rounded-lg shadow p-6">
            <Holidays/>

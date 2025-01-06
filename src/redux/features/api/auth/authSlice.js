@@ -1,34 +1,40 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  accessToken: "",
-  // user: "",
+  accessToken:'',
+  user:  localStorage.getItem("user")
+  ? JSON.parse(localStorage.getItem("user"))
+  : {},
 };
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    userRegistration: (state, action) => {
-      state.accessToken = action.payload.accessToken;
-    },
     userLoggedIn: (state, action) => {
-      console.log(`action ${JSON.stringify(action)}`);
-      console.log(`token ${JSON.stringify(action.payload.accessToken)}`);
-
-      state.accessToken = action.payload.accessToken;
-      // state.user = action.payload.data.data.user;
-      console.log("userrrr", action.payload.accessToken);
-      // console.log("userrrr", action.payload.data.data.user);
-      localStorage.setItem("accessToken", state.accessToken);
+      const { user = {}, accessToken = "" } = action.payload || {};
+      if (accessToken) {
+        state.accessToken = accessToken;
+        state.user = user;
+    
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("accessToken", accessToken);
+    
+        const expirationTime = new Date().getTime() + 5 * 60 * 1000; // 1 day
+        localStorage.setItem("expirationTime", expirationTime);
+      } else {
+        console.error("Invalid payload received in userLoggedIn");
+      }
     },
+    
+    
     userLoggedOut: (state) => {
       state.accessToken = "";
-      // state.user = "";
+      state.user = {};
       localStorage.clear();
     },
   },
 });
 
-export const { userRegistration, userLoggedIn, userLoggedOut } =
-  authSlice.actions;
+export const { userLoggedIn, userLoggedOut } = authSlice.actions;
 export default authSlice.reducer;

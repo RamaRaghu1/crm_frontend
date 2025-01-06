@@ -1,17 +1,28 @@
 import React from "react";
-import { Mail ,FileText, House, Users} from "lucide-react";
+import { Mail ,FileText, House, Users,SquareKanban ,CalendarDays,ListTodo  } from "lucide-react";
 import {Link} from "react-router-dom"
-const Menu = () => {
-  const data = [
+
+const Menu = ({user}) => {
+// let data;
+  const admindata = [
     { label: "Employee", count: 4, color: "bg-blue-400", icon: <Users/>, src:"/users"},
     { label: "Attendance", count: 3, color: "bg-yellow-400", icon: <House/> , src:"/attendance"},
     { label: "Leave Requests", count: 2, color: "bg-green-400", icon: <Mail/>, src:"/pending-leaves" },
     { label: "Projects", count: 2, color: "bg-red-400", icon:<FileText /> , src:"/project-management"},
   ];
 
+  const userdata = [
+    { label: "Project", count: 4, color: "bg-blue-400", icon: <SquareKanban />, src:"/users"},
+    { label: "Task", count: 3, color: "bg-yellow-400", icon: <ListTodo /> , src:"/attendance"},
+    { label: "Leave", count: 2, color: "bg-green-400", icon: <Mail/>, src:"/applied-leaves" },
+    { label: "Calendar", count: 2, color: "bg-red-400", icon:<CalendarDays /> , src:"/project-management"},
+  ];
+  const data = user?.isSuperUser ? admindata : userdata;
   return (
     <div className="flex  items-center ">
       <div className="grid md:grid-cols-4 grid-cols-1 gap-6 w-full ">
+
+       
         {data.map((item, index) => (
         <Link to={item?.src}>
         

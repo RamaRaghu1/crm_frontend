@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./features/api/apiSlice.js";
 import authSlice from "./features/api/auth/authSlice.js";
+import { setupListeners } from "@reduxjs/toolkit/query/react";
  const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
@@ -13,7 +14,7 @@ import authSlice from "./features/api/auth/authSlice.js";
 });
 
 
-console.log(store.getState());
+console.log("storeeee", store.getState());
 
 
 const initializeApp = async () => {
@@ -22,6 +23,6 @@ const initializeApp = async () => {
   );
 };
 
-initializeApp();
-
+// initializeApp();
+setupListeners(store.dispatch);
 export default store;

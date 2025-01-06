@@ -1,5 +1,5 @@
 import { apiSlice } from "../apiSlice.js";
-import { userLoggedIn,userLoggedOut } from "./authSlice.js";
+import { userLoggedIn, userLoggedOut } from "./authSlice.js";
 
 const authApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -8,22 +8,25 @@ const authApi = apiSlice.injectEndpoints({
         url: "/users/login",
         method: "POST",
         body: data,
-        credentials:"include",
-      
+        credentials: "include",
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
-          console.log(`result.data ${JSON.stringify(result.data)}`);
-          console.log(`result.data.token ${JSON.stringify(result.data.data.accessToken)}`);
+          const user = result.data.data?.user; // Adjust based on actual structure
+          const accessToken = result.data.data?.accessToken;
+          console.log("Dispatching userLoggedIn...");
+          console.log("Full response:", result);
+          console.log(`user ${JSON.stringify(result.data.data.user)}`);
+          console.log(`token ${JSON.stringify(result.data.data.accessToken)}`);
           dispatch(
             userLoggedIn({
-              accessToken: result.data.data.accessToken,
-              data: result.data,
+              accessToken,
+              user
             })
           );
         } catch (error) {
-          console.log(error);
+          console.error("Error in onQueryStarted:", error.message);
         }
       },
     }),
@@ -34,13 +37,9 @@ const authApi = apiSlice.injectEndpoints({
         credentials: "include",
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
-        
-      
         try {
-         
-          dispatch(
-            userLoggedOut()
-          );
+          await queryFulfilled
+          dispatch(userLoggedOut());
         } catch (error) {
           console.log(error);
         }
@@ -49,4 +48,4 @@ const authApi = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useLogInMutation, useLogOutQuery} = authApi;
+export const { useLogInMutation, useLogOutQuery } = authApi;

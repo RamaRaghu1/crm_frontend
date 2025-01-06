@@ -1,28 +1,19 @@
-import { Navigate } from "react-router-dom";
-import {jwtDecode} from "jwt-decode";
-import useAuth from "./userAuth";
+
+import { useEffect } from "react";
+import { useNavigate, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
-export default function Protected({ children }) {
-//   const token =
-  const {token} = useSelector((state)=>state.accessToken)  || localStorage.getItem("accessToken");
 
-  if (!token) {
-    return <Navigate to="/login" />;
-  }
+export default function Protected() {
+  const navigate = useNavigate();
+  const { user } = useSelector((state) => state.auth);
 
-  try {
-    const decodedToken = jwtDecode(token);
-    const isTokenValid = decodedToken.exp * 1000 > Date.now();
-console.log("______",isTokenValid)
-    return isTokenValid ? children : <Navigate to="/login" />;
-  } catch (error) {
-    console.error("Invalid token", error);
-    return <Navigate to="/login" />;
-  }
+  useEffect(() => {
+    if (!user || Object.keys(user).length === 0) {
+    
+      navigate("/login");
+    }
+  }, [user, navigate]);
+
+ 
+  return user && Object.keys(user).length > 0 ? <Outlet /> : null;
 }
-
-// export default function Protected({children}){
-//     const isAuthenticated = useAuth();
-
-//     return isAuthenticated ? children : <Navigate to='/'/>
-// }

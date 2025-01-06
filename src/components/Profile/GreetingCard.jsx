@@ -18,7 +18,7 @@ const GreetingCard = ({name}) => {
             greeting: 'Good Afternoon',
             message: 'Hope you\'re having a productive day!',
             Icon: Sun,
-            bgColor: 'from-blue-50 to-indigo-50',
+            bgColor: 'from-blue-100 to-indigo-100',
             iconColor: 'text-blue-500',
           };
         } else if (hour < 20) {
@@ -26,7 +26,7 @@ const GreetingCard = ({name}) => {
             greeting: 'Good Evening',
             message: 'Time to wrap up for the day!',
             Icon: Coffee,
-            bgColor: 'from-purple-50 to-pink-50',
+            bgColor: 'from-purple-100 to-pink-100',
             iconColor: 'text-purple-500',
           };
         } else {
@@ -34,7 +34,7 @@ const GreetingCard = ({name}) => {
             greeting: 'Good Night',
             message: 'Have a peaceful evening!',
             Icon: Moon,
-            bgColor: 'from-indigo-50 to-purple-50',
+            bgColor: 'from-indigo-100 to-purple-100',
             iconColor: 'text-indigo-500',
           };
         }
