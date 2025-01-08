@@ -23,6 +23,8 @@ import { Route, RouterProvider, createRoutesFromElements } from "react-router";
 import { createBrowserRouter } from "react-router-dom";
 import Protected from "./utils/userProtected.jsx";
 import AdminRoute from "./utils/adminProtected.jsx";
+import { EmployeeTasks } from "./pages/EmployeeTasks.jsx";
+// import ViewTask from "./components/task/ViewTask.jsx";
 
 // export const Custom = ({ children }) => {
 
@@ -44,6 +46,9 @@ const router = createBrowserRouter(
         <Route path="/applied-leaves/:id" element={<AppliedLeaves />} />
        <Route path="/edit-profile/:id" element={<EmployeeProfileForm />} />
         <Route path="/profile/:id" element={<Profile />} />
+        <Route path="/project-management/:id" element={<ProjectManagement />} />
+        <Route path="/project/:id" element={<ProjectDetails />} />
+        <Route path="/tasks/:id" element={<EmployeeTasks />} />
       </Route>
 
       <Route path="" element={<AdminRoute />}>
@@ -51,8 +56,7 @@ const router = createBrowserRouter(
         <Route path="/pending-leaves" element={<PendingLeaves />} />
         <Route path="/attendance" element={<Attendance />} />
         <Route path="/add-employee" element={<AddEmployee />} />
-        <Route path="/project-management" element={<ProjectManagement />} />
-        <Route path="/project/:id" element={<ProjectDetails />} />
+      
       </Route>
     </Route>
   )

@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import userImg from "../assets/user.png";
 import { Building2,Building, Phone, Clock, User2 ,Pencil} from "lucide-react";
 import 'react-calendar/dist/Calendar.css';
-import Sidebar from "../components/Sidebar/Sidebar";
+import {Sidebar} from "../components/Sidebar/Sidebar";
 const Profile = () => {
 
 

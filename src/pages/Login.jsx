@@ -1,12 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { useLogInMutation } from "../redux/features/api/auth/authApi.js";
-import {toast} from "react-hot-toast";
+import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
+
+import { toast } from "react-hot-toast";
 const Login = () => {
-    const navigate=useNavigate();
-  const [logIn,{isSuccess,error,data,isLoading}] = useLogInMutation();
+  const [show, setShow] = useState(false);
+  const navigate = useNavigate();
+  const [logIn, { isSuccess, error, data, isLoading }] = useLogInMutation();
+
   const schema = Yup.object().shape({
     email: Yup.string()
       .email("Invalid email!")
@@ -22,27 +26,22 @@ const Login = () => {
     },
   });
 
-useEffect(()=>{
-localStorage.clear();
-},[])
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
 
-useEffect(()=>{
-
-    if(isSuccess && data.success==true ){
-    
-        toast.success(data.message);
-      
-        navigate("/")
+  useEffect(() => {
+    if (isSuccess && data.success == true) {
+      toast.success(data.message);
+      // refetch();
+      navigate("/", { replace: true });
     }
 
     if (error) {
-   
-        const errorMessage = error;
-        toast.error(errorMessage?.data?.message);
-      
+      const errorMessage = error;
+      toast.error(errorMessage?.data?.message);
     }
-},[isSuccess,data,error])
-
+  }, [isSuccess, data, error]);
 
   const { values, errors, touched, handleChange, handleSubmit } = formik;
 
@@ -114,14 +113,14 @@ useEffect(()=>{
                           Password{" "}
                         </label>
 
-                        <a
+                        {/* <a
                           href="#"
                           title=""
                           class="text-sm font-medium text-orange-500 transition-all duration-200 hover:text-orange-600 focus:text-orange-600 hover:underline"
                         >
                           {" "}
                           Forgot password?{" "}
-                        </a>
+                        </a> */}
                       </div>
                       <div class="mt-2.5 relative text-gray-400 focus-within:text-gray-600">
                         <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -142,7 +141,7 @@ useEffect(()=>{
                         </div>
 
                         <input
-                          type="password"
+                          type={!show ? "password" : "text"}
                           name="password"
                           id=""
                           onChange={handleChange}
@@ -150,6 +149,19 @@ useEffect(()=>{
                           placeholder="Enter your password"
                           class="block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
                         />
+                        {!show ? (
+                          <AiOutlineEyeInvisible
+                            className="absolute bottom-4 right-2 z-1 cursor-pointer"
+                            size={20}
+                            onClick={() => setShow(true)}
+                          />
+                        ) : (
+                          <AiOutlineEye
+                            className="absolute bottom-4 right-2 z-1 cursor-pointer"
+                            size={20}
+                            onClick={() => setShow(false)}
+                          />
+                        )}
                         {errors.password && touched.password && (
                           <span className="text-red-500 font-medium">
                             {errors.password}

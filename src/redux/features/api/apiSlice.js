@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-
+import { userLoggedIn } from "./auth/authSlice";
 export const apiSlice = createApi({
   reducerPath:"api",
   baseQuery: fetchBaseQuery({
@@ -22,6 +22,21 @@ credentials:"include",
         method: "GET",
         credentials: "include",
       }),
+      // async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+      //    try {
+      //            const result = await queryFulfilled;
+      //            const user = result.data.data?.user; 
+      //            const accessToken = result.data.data?.accessToken;
+      //            dispatch(
+      //              userLoggedIn({
+      //                accessToken,
+      //                user
+      //              })
+      //            );
+      //          } catch (error) {
+      //            console.error("Error in onQueryStarted:", error.message);
+      //          }
+      // },
     }),
     
   }),

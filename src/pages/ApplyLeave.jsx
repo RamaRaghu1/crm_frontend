@@ -3,7 +3,7 @@ import { Calendar, FileText, AlertCircle, UserRound } from "lucide-react";
 import LeaveBalance from "../components/Leave/LeaveBalance";
 import LeaveForm from "../components/Leave/LeaveForm";
 import { useLoadUserQuery } from "../redux/features/api/apiSlice";
-import Sidebar from "../components/Sidebar/Sidebar";
+import {Sidebar} from "../components/Sidebar/Sidebar";
 
 const ApplyLeave = () => {
   const [data, setData] = useState({});

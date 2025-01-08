@@ -17,7 +17,7 @@ export const projectApi=apiSlice.injectEndpoints({
                 method: "GET",
                 credentials:"include",
               }),
-              providesTags: (result, error, id) => [{ type: "Project", id }],
+           
         }),
         createProject:builder.mutation({
             query: (data) => ({
@@ -36,6 +36,15 @@ export const projectApi=apiSlice.injectEndpoints({
               }),
               invalidatesTags: (result, error, { id }) => [{ type: "Project", id }],
         }),
+        getProjectByDevId:builder.query({
+            query: (id) => ({
+                url: `/project/get-projects/${id}`,
+                method: "GET",
+                credentials:"include",
+              }),
+            
+        }),
+
         assignDeveloper:builder.mutation({
             query: ({id, data}) => ({
                 url: `/project/add-dev/${id}`,
@@ -43,7 +52,8 @@ export const projectApi=apiSlice.injectEndpoints({
                 body:data,
                 credentials:"include",
               }),
-            //   invalidatesTags: (result, error, { id }) => [{ type: "Project", id }],
+             
+           
         }),
         deleteProject:builder.mutation({
             query: (id) => ({
@@ -55,4 +65,4 @@ export const projectApi=apiSlice.injectEndpoints({
     })
 })
 
-export const {useGetAllProjectsQuery,useCreateProjectMutation, useGetProjectByIdQuery, useRemoveDeveloperMutation, useAssignDeveloperMutation,useDeleteProjectMutation}=projectApi;
+export const {useGetAllProjectsQuery,useCreateProjectMutation, useGetProjectByIdQuery, useRemoveDeveloperMutation, useAssignDeveloperMutation,useDeleteProjectMutation, useGetProjectByDevIdQuery}=projectApi;

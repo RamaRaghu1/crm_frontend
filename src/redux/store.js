@@ -1,7 +1,15 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { apiSlice } from "./features/api/apiSlice.js";
 import authSlice from "./features/api/auth/authSlice.js";
 import { setupListeners } from "@reduxjs/toolkit/query/react";
+// import 
+
+// const rootReducer=combineReducers({
+//   [apiSlice.reducerPath]: apiSlice.reducer,
+//     auth: authSlice,
+// })
+
+
  const store = configureStore({
   reducer: {
     [apiSlice.reducerPath]: apiSlice.reducer,
@@ -23,6 +31,6 @@ const initializeApp = async () => {
   );
 };
 
-// initializeApp();
-setupListeners(store.dispatch);
+initializeApp();
+// setupListeners(store.dispatch);
 export default store;

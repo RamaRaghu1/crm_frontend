@@ -19,8 +19,9 @@ const authSlice = createSlice({
     
         localStorage.setItem("user", JSON.stringify(user));
         localStorage.setItem("accessToken", accessToken);
-    
-        const expirationTime = new Date().getTime() + 5 * 60 * 1000; // 1 day
+       
+        const expirationTime = new Date().getTime() + 1* 24*60 * 60 * 1000; // 1 day
+        console.log(expirationTime)
         localStorage.setItem("expirationTime", expirationTime);
       } else {
         console.error("Invalid payload received in userLoggedIn");

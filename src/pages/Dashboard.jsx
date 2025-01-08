@@ -1,21 +1,30 @@
 import React, { useState,useEffect } from 'react'
 import Holidays from '../components/Profile/Holidays'
 import Announcement from '../components/Profile/Announcement'
-import Sidebar from '../components/Sidebar/Sidebar'
+import {Sidebar} from '../components/Sidebar/Sidebar'
 import { useLoadUserQuery } from '../redux/features/api/apiSlice'
 import GreetingCard from '../components/Profile/GreetingCard'
 import Menu from "../components/Profile/Menu"
+import { useSelector } from 'react-redux'
 
 const Dashboard = () => {
 
+
+  
     const [data, setData]=useState({});
-    const {data:userData ,isSuccess}=useLoadUserQuery();
+    const {data:userData ,isSuccess, refetch}=useLoadUserQuery();
+  
+useEffect(()=>{
+refetch();
+},[])
+
+
 
     useEffect(() => {
-        if (isSuccess && userData.success === true) {
-          setData(userData.data);
+        if (isSuccess && userData.success) {
+          setData(userData?.data);
         }
-      }, [isSuccess]);
+      }, [isSuccess, userData]);
     
 
       console.log("newwwwww",userData)

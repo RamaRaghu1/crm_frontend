@@ -1,53 +1,95 @@
 import { FolderKanban, PlusIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
-import { useGetAllProjectsQuery } from "../redux/features/project/projectApi";
+import { StepBack } from "lucide-react";
+import {
+  useGetAllProjectsQuery,
+  useGetProjectByDevIdQuery,
+} from "../redux/features/project/projectApi";
 import CreateProject from "../components/Project/CreateProject";
 import CustomModel from "../utils/CustomModal";
 import Column from "../components/Board/Column";
-import { useCreateProjectMutation } from "../redux/features/project/projectApi";
-const ProjectManagement = () => {
-  // const [column, setColumn]=useState([]);
-  const [open, setOpen] = useState(false);
+import { useNavigate } from "react-router-dom";
+import { useLoadUserQuery } from "../redux/features/api/apiSlice";
+import { useParams } from "react-router-dom";
 
+
+
+const ProjectManagement = () => {
+  const { id } = useParams();
+  const [user, setUser] = useState({});
+  const [open, setOpen] = useState(false);
   const [projectData, setProjectData] = useState([]);
+  const {
+    data: userData,
+    isLoading,
+    isSuccess,
+    refetch: userRefetch,
+  } = useLoadUserQuery({});
+
+  const navigate=useNavigate();
+  const { data: projectById, isLoading: projectDataLoading } =
+    useGetProjectByDevIdQuery(id);
+
   const { data, refetch } = useGetAllProjectsQuery(
     {},
     { refetchOnMountOrArgChange: true }
   );
-  // let set = new Set();
+  useEffect(() => {
+    if (isSuccess && userData.success) {
+      setUser(userData.data);
+    }
+  }, [isSuccess, userData]);
 
-  // projectData?.map((dt) => set.add(dt.status));
+  useEffect(() => {
+    userRefetch();
+  }, []);
 
-  // const columns = dArray.from(set);
-  const columns=["To Do", "In Progress", "Completed"]
- 
-  console.log("set", columns);
- 
-
- 
   useEffect(() => {
     refetch();
     setProjectData(data?.data);
   }, [data]);
-  console.log(projectData);
+
+  const project = !user.isSuperUser ? projectById?.data : projectData;
+
+  const columns = ["To Do", "In Progress", "Completed"];
+
+  console.log("projectData", projectData);
+  console.log("projectById?.data", projectById?.data);
+
+  console.log(project);
   return (
-    <div className="bg-indigo-400 h-full w-[100%] ">
+    <div className="bg-indigo-200 h-full w-[100%] ">
       <div className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               <FolderKanban className="h-8 w-8 text-indigo-600" />
               <h1 className="text-2xl font-bold text-gray-900">
-                Project Management
+                {!user?.isSuperUser ? "My Projects" : " Project Management"}
               </h1>
             </div>
-            <div className="flex items-center space-x-4 ">
+            <div className="flex items-center space-x-4">
+              {user && user?.isSuperUser ? (
+                <>
+                  {/* Create Project Button */}
+                  <button
+                    onClick={() => setOpen(true)}
+                    className="flex items-center px-4 py-2 text-white bg-indigo-600 rounded-md font-bold shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-200"
+                  >
+                    <PlusIcon className="mr-2 text-lg" />
+                    Create Project
+                  </button>
+                </>
+              ) : (
+                <></>
+              )}
+              {/* Go Back Button */}
               <button
-                onClick={() => setOpen(true)}
-                className="text-white bg-indigo-600 flex p-2 rounded-md font-bold"
+                onClick={() => navigate(-1)}
+                className="flex items-center px-4 py-2 text-indigo-600 bg-gray-100 border border-gray-300 rounded-md font-bold shadow-sm hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400 transition-all duration-200"
               >
-                <PlusIcon />
-                Create Project
+                <StepBack className="mr-2 text-lg" />
+                Go Back
               </button>
             </div>
           </div>
@@ -59,9 +101,9 @@ const ProjectManagement = () => {
             <Column
               key={column.id}
               column={column}
-              data={projectData}
+              data={project}
               setOpen={setOpen}
-            
+              user={user}
             />
           ))}
         </div>
@@ -71,8 +113,7 @@ const ProjectManagement = () => {
         <CustomModel
           open={open}
           setOpen={setOpen}
-          children={<CreateProject refetch={refetch} setOpen={setOpen}/>}
-         
+          children={<CreateProject refetch={refetch} setOpen={setOpen} />}
         />
       )}
     </div>

@@ -1,47 +1,43 @@
-import React,{useState,useEffect} from 'react'
-import { useLoadUserQuery} from '../redux/features/api/apiSlice';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useLoadUserQuery } from "../redux/features/api/apiSlice";
+import { useNavigate } from "react-router-dom";
 import { IoMdAdd } from "react-icons/io";
-import { useParams } from 'react-router-dom';
-import {AiOutlineDelete} from "react-icons/ai";
-import {FaEdit} from "react-icons/fa";
+import { useParams } from "react-router-dom";
+import { AiOutlineDelete } from "react-icons/ai";
+import { FaEdit } from "react-icons/fa";
 import { MdOutlinePending } from "react-icons/md";
-import { DataGrid } from '@mui/x-data-grid';
-import { FcApproval ,FcCancel } from "react-icons/fc";
-import Sidebar from '../components/Sidebar/Sidebar';
-import { useGetLeavesByIdQuery } from '../redux/features/leave/leaveApi';
+import { DataGrid } from "@mui/x-data-grid";
+import { FcApproval, FcCancel } from "react-icons/fc";
+import { Sidebar } from "../components/Sidebar/Sidebar";
+import { useGetLeavesByIdQuery } from "../redux/features/leave/leaveApi";
 const AppliedLeaves = () => {
-  const navigate=useNavigate();
-    const [data,setData]=useState();
+  const navigate = useNavigate();
+  const [data, setData] = useState();
 
-    const[user, setUser]=useState({});
+  const [user, setUser] = useState({});
 
+  const { id } = useParams();
+  const { data: userData, isSuccess, isLoading, error } = useLoadUserQuery();
 
-    const {id}=useParams();
-    const {data:userData, isSuccess,isLoading,error}=useLoadUserQuery();
+  const { data: leaveData, isSuccess: leaveDataSuccess } =
+    useGetLeavesByIdQuery(id);
 
-const {data:leaveData, isSuccess:leaveDataSuccess}=useGetLeavesByIdQuery(id);
-
-console.log("vgh",id)
-   useEffect(()=>{
-    if(isSuccess  && userData.success===true){
-        setUser(userData?.data)
+  console.log("vgh", id);
+  useEffect(() => {
+    if (isSuccess && userData.success === true) {
+      setUser(userData?.data);
     }
+  }, [isSuccess]);
 
-   
-   },[isSuccess])
-
-
-   useEffect(()=>{
-    if(leaveDataSuccess && leaveData.success===true){
+  useEffect(() => {
+    if (leaveDataSuccess && leaveData.success === true) {
       setData(leaveData.data);
     }
-   },[leaveDataSuccess, leaveData])
+  }, [leaveDataSuccess, leaveData]);
 
-   console.log("leave",data)
-    
+  console.log("leave", data);
 
-   const columns = [
+  const columns = [
     { field: "no", headerName: "Sr no", flex: 0.5, minWidth: 50 },
     { field: "startDate", headerName: "Start Date", flex: 1, minWidth: 100 },
     { field: "endDate", headerName: "End Date", flex: 1, minWidth: 100 },
@@ -83,57 +79,54 @@ console.log("vgh",id)
       ),
     },
   ];
-const rows=[];
-{
+  const rows = [];
+  {
     data &&
-    data.forEach((user) => {
-      user.leaveSets.forEach((leave, index) => {
-        rows.push({
-          id: leave._id,
-          no: index + 1,
-          startDate: new Date(leave.startDate).toLocaleDateString(),
-          endDate: new Date(leave.endDate).toLocaleDateString(),
-          leaveDays: leave.leaveDays,
-          leaveType: leave.leaveType,
-          leaveReason: leave.leaveReason,
-          leaveDuration: leave.leaveDuration,
-          leave_status: leave.leave_status,
+      data.forEach((user) => {
+        user.leaveSets.forEach((leave, index) => {
+          rows.push({
+            id: leave._id,
+            no: index + 1,
+            startDate: new Date(leave.startDate).toLocaleDateString(),
+            endDate: new Date(leave.endDate).toLocaleDateString(),
+            leaveDays: leave.leaveDays,
+            leaveType: leave.leaveType,
+            leaveReason: leave.leaveReason,
+            leaveDuration: leave.leaveDuration,
+            leave_status: leave.leave_status,
+          });
         });
       });
-    });
-}
+  }
   return (
-
-<div className="min-h-screen bg-gray-100">
-       <Sidebar data={user} /> 
+    <div className="min-h-screen bg-gray-100">
+      <Sidebar data={user} />
       <main className="lg:ml-64 min-h-screen p-8">
         <div className="app">
-      
-
           <main className="main-content">
-          
-    <div className="w-[70vw] mx-auto">
-        <div className="flex justify-between mx-4 my-12">
-        <h1 className="font-bold text-3xl  text-blue-600">Applied Leaves</h1>
-        <button
-          className=" px-3 py-2 font-bold text-md text-blue-600 border   border-blue-800 flex rounded-md"
-          onClick={() => navigate("/leave")}
-        >
-          <span className="pt-2 px-1">
-            <IoMdAdd />
-          </span>
-          Add Leave Request
-        </button>
-      </div>
-      
-      <DataGrid rows={rows} columns={columns}/>
-    </div>
+            <div className="w-[70vw] mx-auto">
+              <div className="flex justify-between mx-4 my-12">
+                <h1 className="font-bold text-3xl  text-blue-600">
+                  Applied Leaves
+                </h1>
+
+                <button
+                      className="flex items-center justify-center px-4 py-2 text-md font-bold text-white bg-blue-600 border border-blue-600 rounded-md shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 transition-all duration-200"
+                      onClick={() => navigate("/leave")}
+                    >
+                      <IoMdAdd className="mr-2 text-lg" />
+                      Add Leave Request
+                    </button>
+            
+              </div>
+
+              <DataGrid rows={rows} columns={columns} />
+            </div>
           </main>
         </div>
       </main>
     </div>
+  );
+};
 
-  )
-}
-
-export default AppliedLeaves
+export default AppliedLeaves;

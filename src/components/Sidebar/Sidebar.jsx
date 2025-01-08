@@ -9,7 +9,10 @@ import toast from 'react-hot-toast';
 
 
 
-export default function Sidebar({data}) {
+export  const Sidebar=({data})=> {
+
+
+  console.log("data__________", data)
 
   const navigate=useNavigate();
   const [logOut, setLogOut] = useState(false);
@@ -33,7 +36,7 @@ export default function Sidebar({data}) {
   }, [logOut, refetch]);
 
 console.log("sideDa",data)
-const { email, name, _id } = data;
+// const { email, name, _id } = data;
 useEffect(()=>{
   if(isSuccess && logoutData.success==true){
     toast.success("Logged out successfully!")
@@ -43,9 +46,9 @@ useEffect(()=>{
 
 const navigation = [
   { name: 'Dashboard', icon: Home, href: '/' },
-  { name: 'Project', icon: BarChart2, href: '#' },
-  { name: 'Task', icon: Users, href: '#' },
-  { name: 'Leave', icon: Settings, href: `/applied-leaves/${_id}` },
+  { name: 'Project', icon: BarChart2, href: `/project-management/${data?._id}` },
+  { name: 'Task', icon: Users, href: `/tasks/${data?._id}` },
+  { name: 'Leave', icon: Settings, href: `/applied-leaves/${data?._id}` },
   { name: 'Calendar', icon: Calendar, href: '#' },
   // { name: 'Profile', icon: HelpCircle, href: `/profile/` },
   { name: 'Logout', icon: LogOut , href: '#' },
@@ -105,15 +108,15 @@ const navigation = [
 
           {/* Profile */}
           <div className="p-4 border-t border-gray-200">
-            <div className="flex items-center cursor-pointer" onClick={()=>navigate(`/profile/${_id}`)}>
+            <div className="flex items-center cursor-pointer" onClick={()=>navigate(`/profile/${data?._id}`)}>
               <img
                 src={ userImg}
                 alt="Profile"
                 className="w-10 h-10 rounded-full"
               />
               <div className="ml-3">
-                <p className="text-sm font-medium text-gray-700">{name}</p>
-                <p className="text-xs text-gray-500">{email}</p>
+                <p className="text-sm font-medium text-gray-700">{data?.name}</p>
+                <p className="text-xs text-gray-500">{data?.email}</p>
               </div>
             </div>
           </div>

@@ -12,6 +12,30 @@ export const taskApi = apiSlice.injectEndpoints({
 
       }),
     }),
+    getTaskByID: builder.query({
+      query: (taskId) => ({
+        url:`/task/task-details?taskId=${taskId}`,
+        method:"GET",
+        credentials:"include",
+
+      }),
+    }),
+    changeTaskStatus: builder.mutation({
+      query: ({id,taskId, status}) => ({
+        url:`/task/change-status/${id}`,
+        method:"POST",
+        body:{taskId, status},
+        credentials:"include",
+      }),
+    }),
+    getTaskByUserId: builder.query({
+      query: (taskId) => ({
+        url:`/task/all-tasks/${taskId}`,
+        method:"GET",
+        credentials:"include",
+
+      }),
+    }),
   }),
 });
-export const {useCreateTaskMutation}=taskApi;
+export const {useCreateTaskMutation, useGetTaskByIDQuery, useChangeTaskStatusMutation, useGetTaskByUserIdQuery}=taskApi;

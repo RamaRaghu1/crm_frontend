@@ -3,7 +3,7 @@ import TaskCard from './TaskCard';
 import { Plus } from 'lucide-react';
 
 
-const Column= ({ column,data, setOpen,}) => {
+const Column= ({ column, data, setOpen,user}) => {
 //   const handleDragOver = (e: React.DragEvent) => {
 //     e.preventDefault();
 //   };
@@ -32,7 +32,7 @@ console.log(data,"inside column")
         ))}
       </div> 
 
-    {column && column != "Completed" ?
+    {column && column != "Completed"  && user?.isSuperUser ?
     
     <button
         onClick={() => setOpen(true)}

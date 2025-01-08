@@ -3,19 +3,19 @@ import { Mail ,FileText, House, Users,SquareKanban ,CalendarDays,ListTodo  } fro
 import {Link} from "react-router-dom"
 
 const Menu = ({user}) => {
-// let data;
+
   const admindata = [
     { label: "Employee", count: 4, color: "bg-blue-400", icon: <Users/>, src:"/users"},
     { label: "Attendance", count: 3, color: "bg-yellow-400", icon: <House/> , src:"/attendance"},
     { label: "Leave Requests", count: 2, color: "bg-green-400", icon: <Mail/>, src:"/pending-leaves" },
-    { label: "Projects", count: 2, color: "bg-red-400", icon:<FileText /> , src:"/project-management"},
+    { label: "Projects", count: 2, color: "bg-red-400", icon:<FileText /> , src:`/project-management/${user?._id}`}
   ];
 
   const userdata = [
-    { label: "Project", count: 4, color: "bg-blue-400", icon: <SquareKanban />, src:"/users"},
-    { label: "Task", count: 3, color: "bg-yellow-400", icon: <ListTodo /> , src:"/attendance"},
-    { label: "Leave", count: 2, color: "bg-green-400", icon: <Mail/>, src:"/applied-leaves" },
-    { label: "Calendar", count: 2, color: "bg-red-400", icon:<CalendarDays /> , src:"/project-management"},
+    { label: "Project", count: 4, color: "bg-blue-400", icon: <SquareKanban />, src:`/project-management/${user?._id}`},
+    { label: "Task", count: 3, color: "bg-yellow-400", icon: <ListTodo /> , src:`/tasks/${user?._id}`},
+    { label: "Leave", count: 2, color: "bg-green-400", icon: <Mail/>, src:`/applied-leaves/${user?._id}` },
+    { label: "Calendar", count: 2, color: "bg-red-400", icon:<CalendarDays /> , src:""},
   ];
   const data = user?.isSuperUser ? admindata : userdata;
   return (

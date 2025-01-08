@@ -97,6 +97,7 @@ const AssignTask = ({ setCreateTaskOpen, project, refetch }) => {
             Task Name
           </label>
           <input
+
             type="text"
             name="title"
             value={taskData.title}
@@ -129,7 +130,7 @@ const AssignTask = ({ setCreateTaskOpen, project, refetch }) => {
             >
               Priority
             </label>
-            <select name="priority">
+            <select required name="priority">
               <option value="Low">Low</option>
               <option value="Medium">Medium</option>
               <option value="High">High</option>
@@ -140,6 +141,7 @@ const AssignTask = ({ setCreateTaskOpen, project, refetch }) => {
             Start Date
             <div className="input-wrapper">
               <input
+              required
                 type="date"
                 name="startDate"
                 value={taskData.startDate}
@@ -152,6 +154,7 @@ const AssignTask = ({ setCreateTaskOpen, project, refetch }) => {
             End Date
             <div className="input-wrapper">
               <input
+              required
                 type="date"
                 name="endDate"
                 value={taskData.endDate}
