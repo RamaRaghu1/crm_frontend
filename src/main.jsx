@@ -42,7 +42,7 @@ const router = createBrowserRouter(
 
       <Route path="" element={<Protected />}>
         <Route path="/" element={<Dashboard />} />
-       <Route path="/leave" element={<ApplyLeave />} />
+       <Route path="/leave/:id" element={<ApplyLeave />} />
         <Route path="/applied-leaves/:id" element={<AppliedLeaves />} />
        <Route path="/edit-profile/:id" element={<EmployeeProfileForm />} />
         <Route path="/profile/:id" element={<Profile />} />

@@ -31,7 +31,7 @@ function Attendance() {
       data: attendanceData,
       isLoading: attendanceDataLoading,
       isError: attendanceDataError,
-      
+     
   
     },
   ] = useGetAttendanceDataMutation();
@@ -173,7 +173,7 @@ console.log("editmode",editMode)
               {employee.map((emp) => (
                 <tr key={emp._id} className="hover:bg-gray-50">
                   <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                    {emp._id}
+                    {emp.employeeId}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     {emp.name}
@@ -231,8 +231,8 @@ console.log("editmode",editMode)
           </table>
 
 
-          <button onClick={()=>setEditMode(false)}>Save</button>
-          <button onClick={()=>setEditMode(true)}>Add Attendance</button>
+          {/* <button onClick={()=>setEditMode(!editMode)}>Save</button>
+          <button onClick={()=>setEditMode(!editMode)}>Add Attendance</button> */}
         </div>
       </div>
     </div>

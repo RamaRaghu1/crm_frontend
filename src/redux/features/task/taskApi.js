@@ -36,6 +36,7 @@ export const taskApi = apiSlice.injectEndpoints({
 
       }),
     }),
+   
   }),
 });
 export const {useCreateTaskMutation, useGetTaskByIDQuery, useChangeTaskStatusMutation, useGetTaskByUserIdQuery}=taskApi;

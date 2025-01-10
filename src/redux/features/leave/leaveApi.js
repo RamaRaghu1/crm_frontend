@@ -11,8 +11,8 @@ export const leaveApi = apiSlice.injectEndpoints({
       }),
     }),
     getLeaveSummary: builder.query({
-      query: () => ({
-        url: "/leave/leave-summary",
+      query: (id) => ({
+        url: `/leave/leave-summary/${id}`,
         method: "GET",
         credentials:"include",
       }),
@@ -31,8 +31,17 @@ export const leaveApi = apiSlice.injectEndpoints({
         credentials:"include",
       }),
     }),
+    approveOrRejectLeave:builder.mutation({
+      query: (data) => ({
+        url:`/leave/approveOrRejectLeave`,
+        method:"POST",
+        body:data,
+        credentials:"include",
+
+      }),
+    })
    
   }),
 });
 
-export const {useApplyLeaveMutation,useGetPendindLeaveRequestQuery,useGetLeaveSummaryQuery,useGetLeavesByIdQuery}=leaveApi;
+export const {useApplyLeaveMutation,useGetPendindLeaveRequestQuery,useGetLeaveSummaryQuery,useGetLeavesByIdQuery, useApproveOrRejectLeaveMutation}=leaveApi;

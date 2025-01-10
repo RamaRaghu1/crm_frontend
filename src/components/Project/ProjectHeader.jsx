@@ -13,6 +13,7 @@ import {
 import { useParams } from "react-router-dom";
 import userImg from "../../assets/user.png";
 import { useNavigate } from "react-router-dom";
+import UpdateProject from "./UpdateProject";
 const ProjectHeader = ({
   developers,
   project,
@@ -137,7 +138,7 @@ const ProjectHeader = ({
 
         {/* Edit Project Button */}
         <button
-          onClick={onEdit}
+          onClick={() => setEditProjectOpen(true)}
           className="flex items-center gap-3 px-6 py-3 text-white bg-yellow-500 rounded-lg shadow-lg hover:bg-yellow-600 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-yellow-300 transition-all"
         >
           <Pencil size={20} />
@@ -179,6 +180,20 @@ const ProjectHeader = ({
             <AssignTask
               setCreateTaskOpen={setCreateTaskOpen}
               refetch={refetch}
+              project={project}
+            />
+          }
+        />
+      )}
+
+{editProjectOpen&& (
+        <CustomModel
+          open={editProjectOpen}
+          setOpen={setEditProjectOpen}
+          children={
+            <UpdateProject
+            setEditProjectOpen={setEditProjectOpen}
+          
               project={project}
             />
           }

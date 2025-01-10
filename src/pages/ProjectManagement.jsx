@@ -58,7 +58,7 @@ const ProjectManagement = () => {
 
   console.log(project);
   return (
-    <div className="bg-indigo-200 h-full w-[100%] ">
+    <div className="bg-indigo-200 h-[100%] w-[100%] ">
       <div className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center justify-between">
@@ -95,7 +95,7 @@ const ProjectManagement = () => {
           </div>
         </div>
       </div>
-      <div className="w-[100%] px-4 sm:px-6 lg:px-2 py-2">
+      <div className="w-[100%] h-screen px-4 sm:px-6 lg:px-2 py-2">
         <div className="flex gap-6 overflow-x-auto p-6">
           {columns.map((column) => (
             <Column

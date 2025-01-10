@@ -129,7 +129,7 @@ const Employees = () => {
 </div>
 
 
-      <DataGrid rows={rows} columns={columns} />
+      <DataGrid rows={rows} columns={columns} disableRowSelectionOnClick/>
     </div>
   );
 };

@@ -1,23 +1,74 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { useGetPendindLeaveRequestQuery } from "../../redux/features/leave/leaveApi";
+import {
+  useGetPendindLeaveRequestQuery,
+  useApproveOrRejectLeaveMutation,
+} from "../../redux/features/leave/leaveApi";
 import { StepBack } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+
 const PendingLeaves = () => {
   const [data, setData] = useState();
   const {
     data: leaveData,
     isSuccess: leaveSuccess,
     error,
+    refetch,
   } = useGetPendindLeaveRequestQuery();
 
+  const [
+    approveOrRejectLeave,
+    { data: approveData, isSuccess: approveSuccess, error: approveError },
+  ] = useApproveOrRejectLeaveMutation();
   useEffect(() => {
     if (leaveSuccess && leaveData) {
       setData(leaveData?.data);
     }
   });
-const navigate=useNavigate();
+  const navigate = useNavigate();
   console.log("jghfhgfy", data);
+
+  useEffect(() => {
+    if (approveSuccess && approveData.success) {
+      refetch();
+      toast.success(approveData.message);
+   
+    } else if (approveError) {
+      const errorMessage = approveError;
+      toast.error(errorMessage?.data?.message);
+  
+    }
+  }, [approveSuccess, approveError]);
+  const handleApprove = async (leaveId) => {
+    await approveOrRejectLeave({ leaveId, isApproved: true });
+    setData((prevData) => {
+      const updatedData = prevData.map((employee) => ({
+        ...employee,
+        leaveSets: employee.leaveSets.map((leaveSet) =>
+          leaveSet._id === leaveId
+            ? { ...leaveSet, status: "Approved" }
+            : leaveSet
+        ),
+      }));
+      return updatedData;
+    });
+  };
+
+  const handleReject = async (leaveId) => {
+    await approveOrRejectLeave({ leaveId, isApproved: false });
+    setData((prevData) => {
+      const updatedData = prevData.map((employee) => ({
+        ...employee,
+        leaveSets: employee.leaveSets.map((leaveSet) =>
+          leaveSet._id === leaveId
+            ? { ...leaveSet, status: "Rejected" }
+            : leaveSet
+        ),
+      }));
+      return updatedData;
+    });
+  };
 
   const columns = [
     { field: "no", headerName: "Sr No", flex: 0.5, minWidth: 80 },
@@ -27,16 +78,49 @@ const navigate=useNavigate();
       flex: 1,
       minWidth: 150,
     },
-    { field: "employeeId", headerName: "Employee ID", flex: 1, minWidth: 100 },
+    { field: "employeeId", headerName: "Employee ID", flex: 1, minWidth: 50 },
     { field: "startDate", headerName: "Start Date", flex: 1, minWidth: 150 },
     { field: "endDate", headerName: "End Date", flex: 1, minWidth: 150 },
-    { field: "leaveDays", headerName: "No of Days", flex: 1, minWidth: 100 },
-    { field: "leaveType", headerName: "Leave Type", flex: 1, minWidth: 150 },
+    { field: "leaveDays", headerName: "No of Days", flex: 1, minWidth: 50 },
+    { field: "leaveType", headerName: "Leave Type", flex: 1, minWidth: 100 },
     {
       field: "leaveDuration",
       headerName: "Leave Duration",
       flex: 1,
-      minWidth: 150,
+      minWidth: 100,
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      flex: 1,
+      minWidth: 200,
+   
+      renderCell: (params) => {
+        const { status } = params.row;
+        return (
+        <div className="flex space-x-2 py-3">
+            {status !== "Approved" && status !== "Rejected" && (
+              <>
+                <button
+                  className="px-4 py-1 text-sm font-bold text-white bg-green-600 rounded-md hover:bg-green-700"
+                  onClick={() => handleApprove( params.row.id)}
+                >
+                  Approve
+                </button>
+                <button
+                  className="px-4 py-1 text-sm font-bold text-white bg-red-600 rounded-md hover:bg-red-700"
+                  onClick={() => handleReject( params.row.id)}
+                >
+                  Reject
+                </button>
+              </>
+            )}
+            {status && status !== "Pending" && (
+              <span className="font-bold">{status}</span>
+            )}
+          </div>
+        )
+      },
     },
   ];
 
@@ -47,7 +131,7 @@ const navigate=useNavigate();
         employee.leaveSets.forEach((leaveSet, leaveIndex) => {
           rows.push({
             id: leaveSet._id,
-            no: employeeIndex + 1,
+            no: leaveIndex + 1,
             employeeName: employee.employeeName,
             employeeId: employee.employeeId,
             startDate: new Date(leaveSet.startDate).toDateString(),
@@ -63,14 +147,10 @@ const navigate=useNavigate();
     // lg:ml-64
     <div className="min-h-screen bg-gray-100">
       {/* <Sidebar data={userData?.data} /> */}
-      <main
-        className="
-     
-      min-h-screen p-8"
-      >
+      <main className="min-h-screen p-2">
         <div className="app">
           <main className="main-content">
-            <div className="w-[80vw] mx-auto">
+            <div className="w-[95vw] mx-auto">
               <div className="flex justify-between mx-4 my-12">
                 <h1 className="font-bold text-3xl  text-blue-600">
                   Leave Requests
@@ -86,7 +166,11 @@ const navigate=useNavigate();
                 </button>
               </div>
 
-              <DataGrid rows={rows} columns={columns} />
+              <DataGrid
+                rows={rows}
+                columns={columns}
+                disableRowSelectionOnClick
+              />
             </div>
           </main>
         </div>
