@@ -3,17 +3,20 @@ import { Save } from "lucide-react";
 import { Sidebar } from "../Sidebar/Sidebar";
 import FormSection from "./FormSection";
 import FormField from "./FormField";
-import { useLoadUserQuery } from "../../redux/features/api/apiSlice";
+import { useGetUserByIdQuery } from "../../redux/features/user/userApi";
 import { User } from "lucide-react";
 import { useUpdateProfileMutation } from "../../redux/features/user/userApi";
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useLoadUserQuery } from "../../redux/features/api/apiSlice";
+
 export default function EmployeeProfileForm() {
   const { id } = useParams();
-  const [data, setData] = useState({});
+ const {data}=useLoadUserQuery();
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
-  const { data: userData, isSuccess } = useLoadUserQuery();
+
+  const { data: userData, isSuccess } = useGetUserByIdQuery(id);
   const navigate = useNavigate();
   const [
     UpdateProfile,
@@ -22,14 +25,12 @@ export default function EmployeeProfileForm() {
 
   useEffect(() => {
     if (isSuccess && userData.success === true) {
-      setData(userData?.data);
+     
       setFormData(userData?.data);
     }
   }, [isSuccess]);
 
   console.log("form", formData);
-
-
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,12 +62,12 @@ export default function EmployeeProfileForm() {
       toast.success(updateData.message);
       navigate(`/profile/${id}`);
     }
-  },[updateSuccess, updateData]);
+  }, [updateSuccess, updateData]);
 
   return (
     <>
       <div className="min-h-screen bg-gray-100">
-        <Sidebar data={data} />
+        <Sidebar data={data?.data} />
         <main className="lg:ml-64 min-h-screen p-8">
           <div className="app">
             <main className="main-content">
@@ -93,7 +94,7 @@ export default function EmployeeProfileForm() {
                 <FormSection title="Personal Information">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <FormField
-                      label="name"
+                      label="Name"
                       name="name"
                       value={formData.name}
                       onChange={handleChange}
@@ -110,12 +111,31 @@ export default function EmployeeProfileForm() {
                       error={errors.email}
                     />
                     <FormField
-                      label="Phone"
+                      label="Phone Number"
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
                       required
                       error={errors.phone}
+                    />
+                    <FormField
+                      label="Gender"
+                      name="gender"
+                      value={formData.gender}
+                      onChange={handleChange}
+                      component="select"
+                      options={["Male", "Female", "Other"]}
+                      required
+                      error={errors.gender}
+                    />
+                    <FormField
+                      label="Date of Birth"
+                      name="dateOfBirth"
+                      type="date"
+                      value={formData.dateOfBirth?.split("T")[0]}
+                      onChange={handleChange}
+                      required
+                      error={errors.dateOfBirth}
                     />
                   </div>
                 </FormSection>
@@ -125,23 +145,41 @@ export default function EmployeeProfileForm() {
                     <FormField
                       label="Department"
                       name="team"
-                      readOnly
+                       
                       value={formData.team}
                       onChange={handleChange}
                       required
+                      component="select"
+                      options={[
+                        "Others",
+                        "Management",
+                        "Digital Marketing",
+                        "Support",
+                        "Tech",
+                      ]}
                     />
                     <FormField
                       label="Branch"
                       name="branch"
-                      readOnly
+                       
                       value={formData.branch}
                       onChange={handleChange}
+                      component="select"
+                      options={[
+                        "Chennai",
+                        "Madurai",
+                        "Trichy",
+                        "Salem",
+                        "Tirunelveli",
+                        "Coimbatore",
+                        "Vellore",
+                      ]}
                       required
                     />
                     <FormField
                       label="Position"
                       name="position"
-                      readOnly
+                       
                       value={formData.position}
                       onChange={handleChange}
                       required
@@ -162,30 +200,56 @@ export default function EmployeeProfileForm() {
                     <div className="md:col-span-2">
                       <FormField
                         label="Street Address"
-                        name="address.street"
-                        value={formData.address?.street}
+                        name="street"
+                        value={formData?.address?.street}
                         onChange={handleChange}
                         required
                       />
                     </div>
                     <FormField
                       label="City"
-                      name="address.city"
-                      value={formData.address?.city}
+                      name="city"
+                      value={formData?.address?.city}
                       onChange={handleChange}
                       required
                     />
                     <FormField
                       label="State"
-                      name="address.state"
-                      value={formData.address?.state}
+                      name="state"
+                      value={formData?.address?.state}
                       onChange={handleChange}
                       required
                     />
                     <FormField
                       label="ZIP Code"
-                      name="address.zipCode"
-                      value={formData.address?.zipCode}
+                      name="zipCode"
+                      value={formData?.address?.zipCode}
+                      onChange={handleChange}
+                      required
+                    />
+                  </div>
+                </FormSection>
+                <FormSection title="Emergency Contact">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <FormField
+                      label="Full Name"
+                      name="emergencyContactName"
+                      value={formData?.emergencyContactName}
+                      onChange={handleChange}
+                      required
+                    />
+                    <FormField
+                      label="Contact Number"
+                      name="emergencyContactNumber"
+                      value={formData?.emergencyContactNumber}
+                      onChange={handleChange}
+                      required
+                    />
+
+                    <FormField
+                      label="Relationship to Employee"
+                      name="emergencyContactRelation"
+                      value={formData?.emergencyContactRelation}
                       onChange={handleChange}
                       required
                     />

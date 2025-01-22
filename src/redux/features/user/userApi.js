@@ -2,6 +2,7 @@ import { data } from "autoprefixer";
 import {apiSlice} from "../api/apiSlice";
 
 const userApi = apiSlice.injectEndpoints({
+
   endpoints: (builder) => ({
     usersList: builder.query({
       query: () => ({
@@ -9,6 +10,7 @@ const userApi = apiSlice.injectEndpoints({
         method: "GET",
         credentials:"include",
       }),
+     
     }),
     addUser: builder.mutation({
       query: (data) => ({
@@ -33,7 +35,16 @@ const userApi = apiSlice.injectEndpoints({
         credentials:"include",
       })
     }),
+    updateRole: builder.mutation({
+      query:(data)=>({
+        url:`/users/update-role`,
+        method:"PUT",
+        body:data,
+        credentials:"include",
+      })
+   
+    }),
   }),
 });
 
-export const { useUsersListQuery, useAddUserMutation,useGetUserByIdQuery ,useUpdateProfileMutation} = userApi;
+export const { useUsersListQuery, useAddUserMutation,useGetUserByIdQuery ,useUpdateProfileMutation, useUpdateRoleMutation} = userApi;

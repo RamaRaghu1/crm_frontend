@@ -25,13 +25,8 @@ import Protected from "./utils/userProtected.jsx";
 import AdminRoute from "./utils/adminProtected.jsx";
 import { EmployeeTasks } from "./pages/EmployeeTasks.jsx";
 // import ViewTask from "./components/task/ViewTask.jsx";
+import AddTeam from "./pages/AddTeam.jsx";
 
-// export const Custom = ({ children }) => {
-
-//   const { isLoading } = useLoadUserQuery({});
-
-//   return <>{isLoading ? <h1>Loading....</h1> : <>{children}</>}</>;
-// };
 
 
 
@@ -56,6 +51,7 @@ const router = createBrowserRouter(
         <Route path="/pending-leaves" element={<PendingLeaves />} />
         <Route path="/attendance" element={<Attendance />} />
         <Route path="/add-employee" element={<AddEmployee />} />
+        <Route path="/team" element={<AddTeam />} />
       
       </Route>
     </Route>

@@ -88,7 +88,7 @@ const UpdateProject = ({ setEditProjectOpen, project }) => {
 
     console.log("Selected Lead:", selectedLead);
   return (
-    <div className="bg-white rounded-lg h-[90vh] w-full">
+    <div className="bg-white rounded-lg h-full w-full">
       <div className="flex justify-between items-center p-6 border-b">
         <h2 className="text-xl font-semibold">Update Project</h2>
       </div>

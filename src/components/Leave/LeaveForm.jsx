@@ -41,6 +41,8 @@ const LeaveForm = () => {
     }
   }, [isSuccess, data, error]);
 
+
+  
   useEffect(() => {
    refetch();
   }, []);
@@ -54,6 +56,7 @@ const LeaveForm = () => {
       uid: userData?.data?._id,
       employeeName: userData?.data?.name,
       employeeId: userData?.data?.employeeId,
+      branch: userData?.data?.branch,
       leaveDate,
     });
   };

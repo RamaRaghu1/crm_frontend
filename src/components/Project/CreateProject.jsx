@@ -66,7 +66,7 @@ refetch();
   console.log(selectedLead, "nhhgjh");
   return (
     // <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
-    <div className="bg-white rounded-lg h-[90vh] w-full">
+    <div className="bg-white rounded-lg h-full w-full">
       <div className="flex justify-between items-center p-6 border-b">
         <h2 className="text-xl font-semibold">Create New Project</h2>
       </div>

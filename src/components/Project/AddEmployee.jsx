@@ -17,6 +17,20 @@ const AddEmployee = () => {
     joiningDate: selectedDate,
     isSuperUser: false,
     password: "",
+    address: {
+      street: "",
+      city: "",
+      state: "",
+      zipCode: "",
+    },
+    emergencyContactName: "",
+    emergencyContactNumber: "",
+    emergencyContactRelation: "",
+    salary: "",
+    employmentStatus: "Active",
+    phone: "",
+    dateOfBirth: "",
+    gender:"",
   });
 
   const navigate = useNavigate();
@@ -107,22 +121,67 @@ const AddEmployee = () => {
           />
         </div>
         <br />
-        <div>
-          <label htmlFor="position" className={`${styles.label} text-start`}>
-            Position
-          </label>
-          <input
-            type="text"
-            id="position"
-            required
-            name=""
-            placeholder="Enter eployee position"
-            value={employeeInfo.position}
-            className={`${styles.input}`}
-            onChange={(e) =>
-              setEmployeeInfo({ ...employeeInfo, position: e.target.value })
-            }
-          />
+
+        <div className="flex justify-between">
+          <div>
+            <label htmlFor="position" className={`${styles.label} text-start`}>
+              Position
+            </label>
+            <input
+              type="text"
+              id="position"
+              required
+              name=""
+              placeholder="Enter eployee position"
+              value={employeeInfo.position}
+              className={`${styles.input}`}
+              onChange={(e) =>
+                setEmployeeInfo({ ...employeeInfo, position: e.target.value })
+              }
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="employmentStatus"
+              className={`${styles.label} text-start`}
+            >
+              Employment Status
+            </label>
+            <select
+              id="employmentStatus"
+              value={employeeInfo.employmentStatus}
+              className={`${styles.input}`}
+              onChange={(e) =>
+                setEmployeeInfo({
+                  ...employeeInfo,
+                  employmentStatus: e.target.value,
+                })
+              }
+            >
+              <option value="Active">Active</option>
+              <option value="Inactive">Inactive</option>
+            </select>
+          </div>
+       
+
+          <div>
+            <label htmlFor="phone" className={`${styles.label} text-start`}>
+              Phone
+            </label>
+            <input
+              type="text"
+              id="phone"
+              placeholder="Enter phone number"
+              value={employeeInfo.phone}
+              className={`${styles.input}`}
+              onChange={(e) =>
+                setEmployeeInfo({ ...employeeInfo, phone: e.target.value })
+              }
+            />
+          </div>
+
+        
         </div>
         <br />
         <div className="flex justify-between">
@@ -138,7 +197,9 @@ const AddEmployee = () => {
               }}
               required
             >
-              <option value="" disabled>Select</option>
+              <option value="" disabled>
+                Select
+              </option>
               <option value="Tech">Tech</option>
               <option value="Support">Support</option>
               <option value="Digital Marketing">Digital Marketing</option>
@@ -148,7 +209,7 @@ const AddEmployee = () => {
             </select>
           </label>
           <label className={`${styles.label}`} htmlFor="branch">
-            brach
+            Branch
             <select
               className={`${styles.input}`}
               name="branch"
@@ -187,10 +248,175 @@ const AddEmployee = () => {
             />
           </div>
         </div>
+        <br />
+        <div className="flex justify-between">
+          <div>
+            <label htmlFor="salary" className={`${styles.label} text-start`}>
+              Salary
+            </label>
+            <input
+              type="number"
+              id="salary"
+              placeholder="Enter salary"
+              value={employeeInfo.salary}
+              className={`${styles.input}`}
+              onChange={(e) =>
+                setEmployeeInfo({ ...employeeInfo, salary: e.target.value })
+              }
+            />
+          </div>
+          <br />
 
+          <div>
+            <label htmlFor="gender" className={`${styles.label} text-start`}>
+              Gender
+            </label>
+            <select
+              className={`${styles.input}`}
+              name="gender"
+              id="gender"
+              value={employeeInfo.gender}
+              onChange={(e) =>
+                setEmployeeInfo({ ...employeeInfo, gender: e.target.value })
+              }
+              required
+            >
+              <option value="" disabled>
+                Select
+              </option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+
+          <br />
+
+          <div>
+            <label
+              htmlFor="dateOfBirth"
+              className={`${styles.label} text-start`}
+            >
+              Date of Birth
+            </label>
+            <input
+              type="date"
+              id="dateOfBirth"
+              value={employeeInfo.dateOfBirth}
+              className={`${styles.input}`}
+              onChange={(e) =>
+                setEmployeeInfo({
+                  ...employeeInfo,
+                  dateOfBirth: e.target.value,
+                })
+              }
+            />
+          </div>
+        </div>
+
+        <br />
+        <div>
+          <label htmlFor="address" className={`${styles.label} text-start`}>
+            Address
+          </label>
+          <input
+            type="text"
+            placeholder="Street"
+            value={employeeInfo.address.street}
+            className={`${styles.input}`}
+            onChange={(e) =>
+              setEmployeeInfo({
+                ...employeeInfo,
+                address: { ...employeeInfo.address, street: e.target.value },
+              })
+            }
+          />
+          <input
+            type="text"
+            placeholder="City"
+            value={employeeInfo.address.city}
+            className={`${styles.input}`}
+            onChange={(e) =>
+              setEmployeeInfo({
+                ...employeeInfo,
+                address: { ...employeeInfo.address, city: e.target.value },
+              })
+            }
+          />
+          <input
+            type="text"
+            placeholder="State"
+            value={employeeInfo.address.state}
+            className={`${styles.input}`}
+            onChange={(e) =>
+              setEmployeeInfo({
+                ...employeeInfo,
+                address: { ...employeeInfo.address, state: e.target.value },
+              })
+            }
+          />
+          <input
+            type="text"
+            placeholder="Zip Code"
+            value={employeeInfo.address.zipCode}
+            className={`${styles.input}`}
+            onChange={(e) =>
+              setEmployeeInfo({
+                ...employeeInfo,
+                address: { ...employeeInfo.address, zipCode: e.target.value },
+              })
+            }
+          />
+        </div>
         <br />
 
         <div>
+          <label
+            htmlFor="emergencyContact"
+            className={`${styles.label} text-start`}
+          >
+            Emergency Contact
+          </label>
+          <input
+            type="text"
+            placeholder="Full Name"
+            value={employeeInfo.emergencyContactName}
+            className={`${styles.input}`}
+            onChange={(e) =>
+              setEmployeeInfo({
+                ...employeeInfo,
+                emergencyContactName: e.target.value,
+              })
+            }
+          />
+          <input
+            type="text"
+            placeholder="Relationship to Employee"
+            value={employeeInfo.emergencyContactRelation}
+            className={`${styles.input}`}
+            onChange={(e) =>
+              setEmployeeInfo({
+                ...employeeInfo,
+                emergencyContactRelation: e.target.value,
+              })
+            }
+          />
+          <input
+            type="text"
+            placeholder="Contact Number"
+            value={employeeInfo.emergencyContactNumber}
+            className={`${styles.input}`}
+            onChange={(e) =>
+              setEmployeeInfo({
+                ...employeeInfo,
+                emergencyContactNumber: e.target.value,
+              })
+            }
+          />
+        </div>
+        <br />
+
+        <div className="items-center">
           <label
             htmlFor="position"
             className={`${styles.label} text-start pr-2`}
@@ -209,8 +435,6 @@ const AddEmployee = () => {
             }
           />
         </div>
-
-        <br />
 
         <br />
 

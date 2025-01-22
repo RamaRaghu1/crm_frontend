@@ -7,11 +7,13 @@ import userImg from "../assets/user.png";
 import { Building2,Building, Phone, Clock, User2 ,Pencil} from "lucide-react";
 import 'react-calendar/dist/Calendar.css';
 import {Sidebar} from "../components/Sidebar/Sidebar";
+import { useLoadUserQuery } from "../redux/features/api/apiSlice";
 const Profile = () => {
 
 
   let { id } = useParams();
   const navigate=useNavigate();
+  const {data:user}=useLoadUserQuery();
   const [data, setData] = useState({});
   const { data: userData, isSuccess } = useGetUserByIdQuery(id);
 
@@ -31,7 +33,7 @@ const Profile = () => {
   return (
 
     <div className="flex h-screen">
-   <Sidebar data={data}/>
+   <Sidebar data={user?.data}/>
     <div className="bg-slate-50  ml-[20vw] w-[80vw] top-0">
 
       {/* banner */}

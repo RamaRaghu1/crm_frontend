@@ -7,14 +7,14 @@ const AdminRoute = () => {
 const navigate=useNavigate();
 
 useEffect(() => {
-    if (!user?.isSuperUser || Object.keys(user).length === 0) {
+    if ((!user?.isSuperUser && !user?.isAdmin) || Object.keys(user).length === 0) {
     
       navigate("/");
     }
   }, [user, navigate]);
 
  
-  return user?.isSuperUser && Object.keys(user).length > 0 ? <Outlet /> : null;
+  return (user?.isSuperUser || user?.isAdmin )  && Object.keys(user).length > 0 ? <Outlet /> : null;
 
 
  

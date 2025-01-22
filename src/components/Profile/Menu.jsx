@@ -17,7 +17,7 @@ const Menu = ({user}) => {
     { label: "Leave", count: 2, color: "bg-green-400", icon: <Mail/>, src:`/applied-leaves/${user?._id}` },
     { label: "Calendar", count: 2, color: "bg-red-400", icon:<CalendarDays /> , src:""},
   ];
-  const data = user?.isSuperUser ? admindata : userdata;
+  const data = (user?.isSuperUser|| user?.isAdmin) ? admindata : userdata;
   return (
     <div className="flex  items-center ">
       <div className="grid md:grid-cols-4 grid-cols-1 gap-6 w-full ">
