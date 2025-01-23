@@ -12,7 +12,7 @@ import { useLoadUserQuery } from "../../redux/features/api/apiSlice";
 
 export default function EmployeeProfileForm() {
   const { id } = useParams();
- const {data}=useLoadUserQuery();
+//  const {data}=useLoadUserQuery();
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
 
@@ -24,13 +24,13 @@ export default function EmployeeProfileForm() {
   ] = useUpdateProfileMutation();
 
   useEffect(() => {
-    if (isSuccess && userData.success === true) {
+    if (isSuccess && userData.success) {
      
       setFormData(userData?.data);
     }
   }, [isSuccess]);
 
-  console.log("form", formData);
+  console.log("form", userData);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -67,7 +67,7 @@ export default function EmployeeProfileForm() {
   return (
     <>
       <div className="min-h-screen bg-gray-100">
-        <Sidebar data={data?.data} />
+        {/* <Sidebar data={data?.data} /> */}
         <main className="lg:ml-64 min-h-screen p-8">
           <div className="app">
             <main className="main-content">
@@ -200,7 +200,7 @@ export default function EmployeeProfileForm() {
                     <div className="md:col-span-2">
                       <FormField
                         label="Street Address"
-                        name="street"
+                        name="address.street"
                         value={formData?.address?.street}
                         onChange={handleChange}
                         required
@@ -208,21 +208,21 @@ export default function EmployeeProfileForm() {
                     </div>
                     <FormField
                       label="City"
-                      name="city"
+                      name="address.city"
                       value={formData?.address?.city}
                       onChange={handleChange}
                       required
                     />
                     <FormField
                       label="State"
-                      name="state"
+                      name="address.state"
                       value={formData?.address?.state}
                       onChange={handleChange}
                       required
                     />
                     <FormField
                       label="ZIP Code"
-                      name="zipCode"
+                      name="address.zipCode"
                       value={formData?.address?.zipCode}
                       onChange={handleChange}
                       required
