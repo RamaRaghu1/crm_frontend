@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Home, Settings, Users, BarChart2, HelpCircle,LogOut,Calendar,BookUser   } from 'lucide-react';
+import { Menu, X, Home, Settings, Users, BarChart2, HelpCircle,LogOut,Calendar,BookUser ,Mail  } from 'lucide-react';
 import NavItem from './NavItem';
 import logo from "../../assets/logo.jpeg"
 import userImg from "../../assets/user.png";
@@ -49,12 +49,20 @@ const navigation = [
   { name: 'Project', icon: BarChart2, href: `/project-management/${data?._id}` },
   { name: 'Task', icon: Users, href: `/tasks/${data?._id}` },
   { name: 'Leave', icon: Settings, href: `/applied-leaves/${data?._id}` },
-  // { name: 'Calendar', icon: Calendar, href: '#' },
-  { name: 'Manage Team', icon: BookUser, href: '/team' },
-  // { name: 'Profile', icon: HelpCircle, href: `/profile/` },
-  { name: 'Logout', icon: LogOut , href: '#' },
+  
+  
+
+
 ];
 
+
+if (data?.isAdmin) {
+ 
+  navigation.push({ name: 'Manage Team', icon: BookUser, href: '/team' });
+  navigation.push({ name: 'Send Mail', icon: Mail, href: '/send-mail' });
+}
+
+navigation.push(  { name: 'Logout', icon: LogOut , href: '#' });
  const logOutHandler=()=>{
   console.log("jkhgftuh")
   setLogOut(true);

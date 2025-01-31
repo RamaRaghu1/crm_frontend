@@ -17,9 +17,31 @@ export const leaveApi = apiSlice.injectEndpoints({
         credentials:"include",
       }),
     }),
+    summary: builder.mutation({
+      query: (data) => ({
+        url: `/leave/summary`,
+        method: "POST",
+        body:data,
+        credentials:"include",
+      }),
+    }),
     getPendindLeaveRequest:builder.query({
       query: () => ({
         url: "/leave/applied-leave",
+        method: "GET",
+        credentials:"include",
+      }),
+    }),
+    getApprovedLeaveRequest:builder.query({
+      query: () => ({
+        url: "/leave/approved-leave",
+        method: "GET",
+        credentials:"include",
+      }),
+    }),
+    getRejectedLeaveRequest:builder.query({
+      query: () => ({
+        url: "/leave/rejected-leave",
         method: "GET",
         credentials:"include",
       }),
@@ -39,9 +61,18 @@ export const leaveApi = apiSlice.injectEndpoints({
         credentials:"include",
 
       }),
+    }),
+    deleteLeave:builder.mutation({
+      query: (data) => ({
+        url:`/leave/delete-leave`,
+        method:"POST",
+        body:data,
+        credentials:"include",
+
+      }),
     })
    
   }),
 });
 
-export const {useApplyLeaveMutation,useGetPendindLeaveRequestQuery,useGetLeaveSummaryQuery,useGetLeavesByIdQuery, useApproveOrRejectLeaveMutation}=leaveApi;
+export const {useApplyLeaveMutation,useGetPendindLeaveRequestQuery,useGetLeaveSummaryQuery,useGetLeavesByIdQuery, useApproveOrRejectLeaveMutation, useSummaryMutation, useGetApprovedLeaveRequestQuery, useGetRejectedLeaveRequestQuery, useDeleteLeaveMutation}=leaveApi;

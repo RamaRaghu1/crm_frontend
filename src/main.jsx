@@ -26,7 +26,9 @@ import AdminRoute from "./utils/adminProtected.jsx";
 import { EmployeeTasks } from "./pages/EmployeeTasks.jsx";
 // import ViewTask from "./components/task/ViewTask.jsx";
 import AddTeam from "./pages/AddTeam.jsx";
-
+import MainAdminRoute from "./utils/mainAdminProtected.jsx";
+import AttendanceData from "./components/Project/AttendanceData.jsx";
+import SendMail from "./pages/SendMail.jsx";
 
 
 
@@ -50,9 +52,14 @@ const router = createBrowserRouter(
         <Route path="/users" element={<Employees />} />
         <Route path="/pending-leaves" element={<PendingLeaves />} />
         <Route path="/attendance" element={<Attendance />} />
+        <Route path="/attendance-details" element={<AttendanceData/>} />
         <Route path="/add-employee" element={<AddEmployee />} />
-        <Route path="/team" element={<AddTeam />} />
+       
       
+      </Route>
+      <Route path="" element={<MainAdminRoute/>}>
+      <Route path="/team" element={<AddTeam />} />
+      <Route path="/send-mail" element={<SendMail />} />
       </Route>
     </Route>
   )

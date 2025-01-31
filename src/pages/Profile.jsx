@@ -58,7 +58,7 @@ const Profile = () => {
           <p>{email}</p>
         </div>
       </div>
-      <div className="absolute top-4 right-4 flex gap-2 w-fll">
+      {/* <div className="absolute top-4 right-4 flex gap-2 w-fll">
 
       <Tooltip title="Update profile" placement="top-start">
           
@@ -68,7 +68,7 @@ const Profile = () => {
         </button>
         </Tooltip>
        
-      </div>
+      </div> */}
 
 <div className="flex h-[50vh]">
   {/* about section */}
