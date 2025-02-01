@@ -9,10 +9,11 @@ import { useUpdateProfileMutation } from "../../redux/features/user/userApi";
 import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useLoadUserQuery } from "../../redux/features/api/apiSlice";
+import LeaveBalance from "../Leave/LeaveBalance";
 
 export default function EmployeeProfileForm() {
   const { id } = useParams();
-//  const {data}=useLoadUserQuery();
+ const {data}=useLoadUserQuery();
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
 
@@ -57,19 +58,28 @@ export default function EmployeeProfileForm() {
     await UpdateProfile({ id, formData });
   };
 
+  console.log("formsfsa", formData);
   useEffect(() => {
     if (updateSuccess && updateData.success) {
       toast.success(updateData.message);
-      navigate(`/profile/${id}`);
+    location.reload()
+      // navigate(`/profile/${id}`);
     }
   }, [updateSuccess, updateData]);
 
   return (
     <>
       <div className="min-h-screen bg-gray-100">
-        {/* <Sidebar data={data?.data} /> */}
+        <Sidebar data={data?.data} />
         <main className="lg:ml-64 min-h-screen p-8">
           <div className="app">
+          <div>
+                    <h1 className="text-2xl font-semibold text-gray-900 p-4">
+                      Leave Summary
+                    </h1>
+                 
+                  </div>
+          <LeaveBalance/>
             <main className="main-content">
               <form onSubmit={handleSubmit} className="max-w-3xl mx-auto py-8">
                 <div className="flex items-center space-x-4 mb-6">
@@ -81,6 +91,7 @@ export default function EmployeeProfileForm() {
       <User className="w-4 h-4 text-gray-500" />
     </button> */}
                   </div>
+                  
                   <div>
                     <h1 className="text-2xl font-semibold text-gray-900">
                       Update Profile

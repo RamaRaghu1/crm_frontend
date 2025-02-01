@@ -185,7 +185,7 @@ const AddEmployee = () => {
         </div>
         <br />
         <div className="flex justify-between">
-          <label className={`${styles.label}`} htmlFor="team">
+          <label className={`${styles.label} text-start`} htmlFor="team">
             Team
             <select
               className={`${styles.input}`}
@@ -208,7 +208,7 @@ const AddEmployee = () => {
               <option value="Others">Others</option>
             </select>
           </label>
-          <label className={`${styles.label}`} htmlFor="branch">
+          <label className={`${styles.label} text-start`} htmlFor="branch">
             Branch
             <select
               className={`${styles.input}`}
@@ -231,7 +231,7 @@ const AddEmployee = () => {
             </select>
           </label>
           <div>
-            <label htmlFor="joiningDate" className={`${styles.label}`}>
+            <label htmlFor="joiningDate" className={`${styles.label} text-start`}>
               Joining Date
             </label>
             <input
