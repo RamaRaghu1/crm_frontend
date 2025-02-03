@@ -14,7 +14,7 @@ const AddEmployee = () => {
     position: "",
     team: "",
     branch: "",
-    joiningDate: selectedDate,
+    joiningDate: "",
     isSuperUser: false,
     password: "",
     address: {
@@ -242,8 +242,8 @@ const AddEmployee = () => {
               value={selectedDate}
               className={`${styles.input} `}
               onChange={(e) =>
-                // setEventInfo({ ...employeeInfo, joiningDate: e.target.value })
-                setSelectedDate(e.target.value)
+                setEventInfo({ ...employeeInfo, joiningDate: e.target.value })
+                // setSelectedDate(e.target.value)
               }
             />
           </div>

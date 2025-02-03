@@ -1,23 +1,20 @@
-import React from 'react'
+import React, { useEffect, useMemo } from "react";
 import { useNavigate, Outlet } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+
 const MainAdminRoute = () => {
     const { user } = useSelector((state) => state.auth);
+    const navigate = useNavigate();
 
-    const navigate=useNavigate();
-    
+    const isAdmin = useMemo(() => user && user.isAdmin, [user]);
+
     useEffect(() => {
-        if ( !user?.isAdmin || Object.keys(user).length === 0) {
-        
-          navigate("/");
+        if (!isAdmin) {
+            navigate("/");
         }
-      }, [user, navigate]);
-    
-     
-      return (user?.isAdmin )  && Object.keys(user).length > 0 ? <Outlet /> : null;
-    
-    
-}
+    }, [isAdmin, navigate]);
+
+    return isAdmin ? <Outlet /> : null;
+};
 
 export default MainAdminRoute;
