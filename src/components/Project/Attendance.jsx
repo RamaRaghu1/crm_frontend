@@ -6,13 +6,14 @@ import {
   useUpdateAttendanceMutation,
 } from "../../redux/features/attendance/attendanceApi";
 import { useLoadUserQuery } from "../../redux/features/api/apiSlice";
-
+import { useNavigate } from "react-router-dom";
+import { StepBack } from "lucide-react";
 function Attendance() {
   const { data: user } = useLoadUserQuery();
   const [editMode, setEditMode] = useState(true);
   const [employee, setEmployee] = useState([]);
   const now = new Date().toISOString().split("T")[0];
-
+const navigate=useNavigate();
   const [showInput, setShowInput] = useState(false);
 const {data:userData}=useLoadUserQuery();
   const [selectedDate, setSelectedDate] = useState(
@@ -70,17 +71,37 @@ const {data:userData}=useLoadUserQuery();
     setReasons((prev) => ({ ...prev, [empId]: value }));
   };
 
+  // const markAttendance = async (empId, status, permission) => {
+  //  let reason = reasons[empId] || "";
+  //   await updateAttendance({
+  //     id: empId,
+  //     status,
+  //     date: selectedDate,
+  //     permission,
+  //     reason
+  //   });
+  // };
+
+
   const markAttendance = async (empId, status, permission) => {
-   let reason = reasons[empId] || "";
-    await updateAttendance({
+    let reason = reasons[empId] || "";
+    const response = await updateAttendance({
       id: empId,
       status,
       date: selectedDate,
       permission,
       reason
     });
+  
+    if (response?.data?.success) {
+      setAttendanceforDate((prev) =>
+        prev.map((entry) =>
+          entry._id === empId ? { ...entry, status } : entry
+        )
+      );
+    }
   };
-
+  
   const handleSave=()=>{
     location.reload();
   }
@@ -115,6 +136,7 @@ const {data:userData}=useLoadUserQuery();
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Date Selector */}
+        <div className="flex justify-between">
         <div className="mb-6 flex items-center space-x-4">
           <div className="relative">
             <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
@@ -128,6 +150,20 @@ const {data:userData}=useLoadUserQuery();
           <button onClick={handleSave} className="bg-blue-500 text-white px-4 py-2 rounded">
             Save Attendance
           </button>
+          <button onClick={()=>navigate("/attendance-details")} className="bg-orange-500 text-white px-4 py-2 rounded">
+            Get Attendance Details
+          </button>
+        </div>
+<div>
+<button
+            className="flex items-center justify-center px-4 py-2 text-md font-bold text-blue-600 bg-gray-100 border border-gray-300 rounded-md shadow-sm hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-1 transition-all duration-200"
+            onClick={() => navigate(-1)}
+          >
+            <StepBack className="mr-2 text-lg" />
+            Go Back
+          </button>
+</div>
+
         </div>
 
         {/* Attendance Table */}
