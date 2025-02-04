@@ -17,7 +17,7 @@ const SendMail = () => {
 
   const { data: userData } = useLoadUserQuery();
   const { data: usersList } = useUsersListQuery();
-
+console.log(filteredUsers)
   useEffect(() => {
     if (usersList?.data) {
       const uniqueBranches = [...new Set(usersList.data.map(user => user.branch))];
@@ -29,7 +29,10 @@ const SendMail = () => {
     const branch = e.target.value;
     setSelectedBranch(branch);
     if (usersList?.data) {
-      const filtered = usersList.data.filter(user => user.branch === branch);
+      
+      const filtered = branch==='all'? usersList.data :usersList.data.filter(user => user.branch === branch);
+
+   
       setFilteredUsers(filtered);
       setEmailData((prev) => ({
         ...prev,
@@ -72,6 +75,7 @@ const SendMail = () => {
                 required
               >
                 <option value="">Select Branch</option>
+                <option value="all">All Employees</option>
                 {branches.map((branch, index) => (
                   <option key={index} value={branch}>
                     {branch}

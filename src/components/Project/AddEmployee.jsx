@@ -4,12 +4,11 @@ import { useAddUserMutation } from "../../redux/features/user/userApi.js";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 const AddEmployee = () => {
-  const [selectedDate, setSelectedDate] = useState(
-    new Date().toISOString().split("T")[0]
-  );
+
   const [addUser, { isLoading, isSuccess, data, error }] = useAddUserMutation();
   const [employeeInfo, setEmployeeInfo] = useState({
     name: "",
+    employeeId:'',
     email: "",
     position: "",
     team: "",
@@ -75,11 +74,29 @@ const AddEmployee = () => {
             id="name"
             required
             name=""
-            placeholder="Enter eployee name"
+            placeholder="Enter employee name"
             value={employeeInfo.name}
             className={`${styles.input}`}
             onChange={(e) =>
               setEmployeeInfo({ ...employeeInfo, name: e.target.value })
+            }
+          />
+        </div>
+<br/>
+        <div>
+          <label htmlFor="title" className={`${styles.label} text-start`}>
+            Employee ID
+          </label>
+          <input
+            type="text"
+            id="employeeId"
+            required
+            name=""
+            placeholder="Enter employee id"
+            value={employeeInfo.employeeId}
+            className={`${styles.input}`}
+            onChange={(e) =>
+              setEmployeeInfo({ ...employeeInfo, employeeId: e.target.value })
             }
           />
         </div>
@@ -94,7 +111,7 @@ const AddEmployee = () => {
             id="email"
             required
             name=""
-            placeholder="Enter eployee email"
+            placeholder="Enter employee email"
             value={employeeInfo.email}
             className={`${styles.input}`}
             onChange={(e) =>
@@ -112,7 +129,7 @@ const AddEmployee = () => {
             id="password"
             required
             name=""
-            placeholder="Enter eployee email"
+            placeholder="Enter employee email"
             value={employeeInfo.password}
             className={`${styles.input}`}
             onChange={(e) =>
@@ -132,7 +149,7 @@ const AddEmployee = () => {
               id="position"
               required
               name=""
-              placeholder="Enter eployee position"
+              placeholder="Enter employee position"
               value={employeeInfo.position}
               className={`${styles.input}`}
               onChange={(e) =>
@@ -243,7 +260,7 @@ const AddEmployee = () => {
               className={`${styles.input} `}
               onChange={(e) =>
                 setEmployeeInfo({ ...employeeInfo, joiningDate: e.target.value })
-                // setSelectedDate(e.target.value)
+                
               }
             />
           </div>
@@ -419,12 +436,10 @@ const AddEmployee = () => {
         <div className="items-center">
           <label
             htmlFor="position"
-            className={`${styles.label} text-start pr-2`}
+            className={`${styles.label} text-start px-2`}
           >
-            Admin rights?
-          </label>
-          <input
-            className="cursor-pointer "
+             <input
+            className="cursor-pointer"
             type="checkbox"
             checked={employeeInfo.isSuperUser}
             onChange={() =>
@@ -434,11 +449,14 @@ const AddEmployee = () => {
               })
             }
           />
+            Admin rights?
+          </label>
+         
         </div>
 
         <br />
 
-        <div className="w-full flex items-center justify-end">
+        <div className="w-full flex items-center justify-end pb-8">
           <input
             type="submit"
             value="Add Employee"

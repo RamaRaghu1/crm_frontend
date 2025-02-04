@@ -21,8 +21,8 @@ isSuccess
   console.log("___leave", leaveData)
 
   const leaveTypes = [
-    { type: 'Casual Leave', days: 5, used: 0, icon: Calendar },
-    { type: 'Sick Leave', days: 7, used: 0, icon: Clock },
+    { type: 'Casual Leave', days: 7, used: 0, icon: Calendar },
+    { type: 'Sick Leave', days: 5, used: 0, icon: Clock },
     { type: 'Unpaid Leave', days: 15, used: 0, icon: Battery },
   ];
   const idToTypeMap = {

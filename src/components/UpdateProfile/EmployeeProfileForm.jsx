@@ -203,6 +203,26 @@ export default function EmployeeProfileForm() {
                       onChange={handleChange}
                       required
                     />
+                    <FormField
+                      label="Employee ID"
+                      name="employeeId"
+                      type="text"
+                      value={formData?.employeeId}
+                      onChange={handleChange}
+                      required
+                    />
+                    <FormField
+                      label="Employeement Status"
+                      name="employmentStatus"
+                      value={formData?.employmentStatus}
+                      onChange={handleChange}
+                      component="select"
+                      options={[
+                       "Active",
+                       "Inactive"
+                      ]}
+                      required
+                    />
                   </div>
                 </FormSection>
 
