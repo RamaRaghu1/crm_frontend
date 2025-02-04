@@ -29,6 +29,8 @@ import AddTeam from "./pages/AddTeam.jsx";
 import MainAdminRoute from "./utils/mainAdminProtected.jsx";
 import AttendanceData from "./components/Project/AttendanceData.jsx";
 import SendMail from "./pages/SendMail.jsx";
+import Holiday from "./pages/Holiday.jsx";
+import Announcement from "./pages/Announcement.jsx";
 
 
 
@@ -60,6 +62,8 @@ const router = createBrowserRouter(
       <Route path="" element={<MainAdminRoute/>}>
       <Route path="/team" element={<AddTeam />} />
       <Route path="/send-mail" element={<SendMail />} />
+      <Route path="/holiday" element={<Holiday />} />
+      <Route path="/announcement" element={<Announcement />} />
       </Route>
     </Route>
   )

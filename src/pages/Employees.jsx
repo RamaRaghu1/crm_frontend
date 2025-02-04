@@ -84,7 +84,7 @@ const users = user?.data?.isSuperUser ? (data.filter((el)=>el.branch ==user?.dat
 
     console.log("Submitting user data: ", userData);
     await upadteRole(userData)
-    // Add your API call logic here (e.g., axios or fetch)
+    
   };
 
   const columns = [
@@ -138,22 +138,7 @@ const users = user?.data?.isSuperUser ? (data.filter((el)=>el.branch ==user?.dat
         );
       },
     },
-    // {
-    //   field: "delete",
-    //   headerName: "Delete",
-    //   renderCell: (params) => {
-    //     return (
-    //       <button
-    //         onClick={() => {
-    //           setOpen(!open);
-    //           setEventId(params.row.eventId);
-    //         }}
-    //       >
-    //         <AiOutlineDelete className={"text-black"} size={20} />
-    //       </button>
-    //     );
-    //   },
-    // },
+   
   ];
 
   const rows = [];

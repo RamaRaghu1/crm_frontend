@@ -49,7 +49,7 @@ console.log(filteredUsers)
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:3000/api/v1/users/send-mail", emailData);
+      const res = await axios.post("https://backend.kairaatechserve.com/api/v1/users/send-mail", emailData);
       toast.success(res.data.message);
       setEmailData({ to: "", subject: "", message: "" });
       setSelectedBranch("");

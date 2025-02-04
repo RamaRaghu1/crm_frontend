@@ -8,16 +8,16 @@ import { useNavigate } from "react-router-dom";
 
 const LeaveForm = () => {
   const navigate = useNavigate();
-
+const initailLeave= {
+  leaveType: "",
+  startDate: "",
+  endDate: "",
+  leaveReason: "",
+  leaveDuration: "",
+}
   const [leaveDate, setLeaveDate] = useState([
-    {
-      leaveType: "",
-      startDate: "",
-      endDate: "",
-      leaveReason: "",
-      leaveDuration: "",
-    },
-  ]);
+   initailLeave]
+  );
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -154,7 +154,9 @@ const LeaveForm = () => {
         </div>
 
         <div className="form-actions">
-          <button type="button" className="button button-secondary">
+          <button className="button button-secondary" onClick={()=>setLeaveDate(initailLeave)
+          
+          }>
             Cancel
           </button>
           <button type="submit" className="button button-primary">

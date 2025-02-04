@@ -67,7 +67,7 @@ const AddEmployee = () => {
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="title" className={`${styles.label} text-start`}>
-            Employee Name
+            Employee Name<span className="text-red-500">*</span>
           </label>
           <input
             type="text"
@@ -85,7 +85,7 @@ const AddEmployee = () => {
 <br/>
         <div>
           <label htmlFor="title" className={`${styles.label} text-start`}>
-            Employee ID
+            Employee ID<span className="text-red-500">*</span>
           </label>
           <input
             type="text"
@@ -104,7 +104,7 @@ const AddEmployee = () => {
 
         <div>
           <label htmlFor="title" className={`${styles.label} text-start`}>
-            Employee Email
+            Employee Email<span className="text-red-500">*</span>
           </label>
           <input
             type="email"
@@ -122,7 +122,7 @@ const AddEmployee = () => {
         <br />
         <div>
           <label htmlFor="password" className={`${styles.label} text-start`}>
-            Password
+            Password<span className="text-red-500">*</span>
           </label>
           <input
             type="text"
@@ -142,7 +142,7 @@ const AddEmployee = () => {
         <div className="flex justify-between">
           <div>
             <label htmlFor="position" className={`${styles.label} text-start`}>
-              Position
+              Position<span className="text-red-500">*</span>
             </label>
             <input
               type="text"
@@ -163,7 +163,7 @@ const AddEmployee = () => {
               htmlFor="employmentStatus"
               className={`${styles.label} text-start`}
             >
-              Employment Status
+              Employment Status<span className="text-red-500">*</span>
             </label>
             <select
               id="employmentStatus"
@@ -184,7 +184,7 @@ const AddEmployee = () => {
 
           <div>
             <label htmlFor="phone" className={`${styles.label} text-start`}>
-              Phone
+              Phone<span className="text-red-500">*</span>
             </label>
             <input
               type="text"
@@ -203,7 +203,7 @@ const AddEmployee = () => {
         <br />
         <div className="flex justify-between">
           <label className={`${styles.label} text-start`} htmlFor="team">
-            Team
+            Team<span className="text-red-500">*</span>
             <select
               className={`${styles.input}`}
               name="team"
@@ -226,7 +226,7 @@ const AddEmployee = () => {
             </select>
           </label>
           <label className={`${styles.label} text-start`} htmlFor="branch">
-            Branch
+            Branch<span className="text-red-500">*</span>
             <select
               className={`${styles.input}`}
               name="branch"
@@ -249,7 +249,7 @@ const AddEmployee = () => {
           </label>
           <div>
             <label htmlFor="joiningDate" className={`${styles.label} text-start`}>
-              Joining Date
+              Joining Date<span className="text-red-500">*</span>
             </label>
             <input
               type="date"
@@ -269,7 +269,7 @@ const AddEmployee = () => {
         <div className="flex justify-between">
           <div>
             <label htmlFor="salary" className={`${styles.label} text-start`}>
-              Salary
+              Salary<span className="text-red-500">*</span>
             </label>
             <input
               type="number"
@@ -286,7 +286,7 @@ const AddEmployee = () => {
 
           <div>
             <label htmlFor="gender" className={`${styles.label} text-start`}>
-              Gender
+              Gender<span className="text-red-500">*</span>
             </label>
             <select
               className={`${styles.input}`}
@@ -314,7 +314,7 @@ const AddEmployee = () => {
               htmlFor="dateOfBirth"
               className={`${styles.label} text-start`}
             >
-              Date of Birth
+              Date of Birth<span className="text-red-500">*</span>
             </label>
             <input
               type="date"
@@ -334,7 +334,7 @@ const AddEmployee = () => {
         <br />
         <div>
           <label htmlFor="address" className={`${styles.label} text-start`}>
-            Address
+            Address<span className="text-red-500">*</span>
           </label>
           <input
             type="text"
@@ -392,7 +392,7 @@ const AddEmployee = () => {
             htmlFor="emergencyContact"
             className={`${styles.label} text-start`}
           >
-            Emergency Contact
+            Emergency Contact<span className="text-red-500">*</span>
           </label>
           <input
             type="text"
