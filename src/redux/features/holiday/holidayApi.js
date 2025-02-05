@@ -11,10 +11,10 @@ export const holidayApi = apiSlice.injectEndpoints({
       }),
     }),
     editHoliday: builder.mutation({
-        query: (id) => ({
-            url: "/holiday/edit-holiday",
+        query: ({id,data}) => ({
+            url: `/holiday/edit-holiday/${id}`,
             method: "PUT",
-            body: id,
+            body: data,
             credentials: "include",
           }),
     }),
@@ -26,7 +26,22 @@ export const holidayApi = apiSlice.injectEndpoints({
             credentials: "include",
           }),
     }),
+    getAllHoliday: builder.query({
+      query: () => ({
+          url: "/holiday/get-all-holiday",
+          method: "GET",
+          
+          credentials: "include",
+        }),
+  }),
+  getHolidayById: builder.query({
+    query: (id) => ({
+        url: `/holiday/get-holiday/${id}`,
+        method: "GET",
+        credentials: "include",
+      }),
+}),
   }),
 });
 
-export const {useAddHolidayMutation, useDeleteHolidayMutation, useEditHolidayMutation} = holidayApi;
+export const {useAddHolidayMutation, useDeleteHolidayMutation, useEditHolidayMutation, useGetHolidayByIdQuery, useGetAllHolidayQuery} = holidayApi;

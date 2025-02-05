@@ -60,6 +60,8 @@ if (data?.isAdmin) {
  
   navigation.push({ name: 'Manage Team', icon: BookUser, href: '/team' });
   navigation.push({ name: 'Send Mail', icon: Mail, href: '/send-mail' });
+  navigation.push({ name: 'Holidays', icon: Mail, href: '/all-holiday' });
+  navigation.push({ name: 'Announcements', icon: Mail, href: '/all-announcements' });
 }
 
 navigation.push(  { name: 'Logout', icon: LogOut , href: '#' });

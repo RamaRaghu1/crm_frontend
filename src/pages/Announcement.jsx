@@ -3,9 +3,18 @@ import { Sidebar } from "../components/Sidebar/Sidebar";
 import FormSection from "../components/UpdateProfile/FormSection";
 import FormField from "../components/UpdateProfile/FormField";
 import { useAddAnnouncementMutation, useDeleteAnnouncementMutation, useUpdateAnnouncementMutation } from "../redux/features/announcement/announcementApi";
+import { useLoadUserQuery } from "../redux/features/api/apiSlice";
 
-const Announcement = () => {
-const[addannouncement, {isSuccess, error}]=useAddAnnouncementMutation();
+
+
+
+
+
+
+const Announcement = ({isEdit, selectedAnnouncement, id}) => {
+  const {data:userData}=useLoadUserQuery();
+const[addannouncement, {isSuccess, error, data}]=useAddAnnouncementMutation();
+const[updateannouncement, {isSuccess:updateSuccess, error:updateError, data:updateData}]=useUpdateAnnouncementMutation();
 
     const [announcementData, setannouncementData] = useState({
         title: "",
@@ -25,14 +34,52 @@ const[addannouncement, {isSuccess, error}]=useAddAnnouncementMutation();
     
       const handleSubmit=async(e)=>{
         e.preventDefault();
-        await addannouncement(announcementData)
+        if(isEdit){
+          await updateannouncement({id,data:announcementData })
+        }else{
+          await addannouncement(announcemnentData)
+        }
+       
       }
+ useEffect(() => {
+    if (isEdit && selectedAnnouncement) {
+      setannouncementData(selectedAnnouncement);
+    }
+  }, [isEdit, selectedAnnouncement]);
 
 
+  useEffect(()=>{
+
+    if (isSuccess && data.success) {
+      toast.success(data.message);
+      
+      navigate("/all-announcements");
+    }
+
+    if (error) {
+      const errorMessage = error;
+      toast.error(errorMessage?.data?.message);
+    }
+  },[isSuccess, error])
+
+
+  useEffect(()=>{
+
+    if (updateSuccess && updateData.success) {
+      toast.success(updateData.message);
+      
+      navigate("/all-holiday");
+    }
+
+    if (updateError) {
+      const errorMessage = updateError;
+      toast.error(errorMessage?.updateData?.message);
+    }
+  },[updateSuccess, updateError])
 
   return (
       <div className="min-h-screen bg-gray-100">
-            <Sidebar />
+            <Sidebar data={userData.data}/>
             <main className="lg:ml-64 min-h-screen p-8">
               <main className="main-content">
                 <form onSubmit={handleSubmit} className="max-w-3xl mx-auto py-8">

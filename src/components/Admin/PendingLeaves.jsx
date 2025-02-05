@@ -219,14 +219,14 @@ if(filter=="approved"){
   return (
    
 
-    <div className="min-h-screen  flex ">
+    <div className="min-h-screen bg-gray-100 flex ">
       {/* Sidebar occupies 1/5th of the screen */}
      
         <Sidebar data={userData?.data} className="w-64" />
       
 
       {/* Main Content */}
-      <main className="lg:ml-64 min-h-screen w-[85%] bg-gray-100 p-8">
+      <main className="lg:ml-64 min-h-screen w-[80%]  p-8">
         <div className="w-[95%] mx-auto">
           <div className="flex justify-between mx-4 my-5">
             <h1 className="font-bold text-3xl text-blue-600">Leave Requests</h1>

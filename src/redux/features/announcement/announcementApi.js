@@ -20,10 +20,10 @@ const announcementApi=apiSlice.injectEndpoints({
             })
         }),
         updateAnnouncement:builder.mutation({
-            query:(id)=>({
-                url: "/announcement/edit-announcement",
+            query:({id, data})=>({
+                url: `/announcement/edit-announcement/${id}`,
                 method: "PUT",
-                body: id,
+                body: data,
                 credentials:"include",
             })
         }),
@@ -34,11 +34,11 @@ const announcementApi=apiSlice.injectEndpoints({
                 credentials:"include",
             })
         }),
-        getAnnouncementById:builder.mutation({
+        getAnnouncementById:builder.query({
             query:(id)=>({
-                url: "/announcement/get-announcement",
-                method: "POST",
-                body:id,
+                url: `/announcement/get-announcement/${id}`,
+                method: "GET",
+             
                 credentials:"include",
             })
         }),
@@ -47,4 +47,4 @@ const announcementApi=apiSlice.injectEndpoints({
 })
 
 
-export const {useAddAnnouncementMutation, useDeleteAnnouncementMutation, useUpdateAnnouncementMutation, useGetAllAnnouncementQuery, useGetAnnouncementByIdMutation}=announcementApi;
+export const {useAddAnnouncementMutation, useDeleteAnnouncementMutation, useUpdateAnnouncementMutation, useGetAllAnnouncementQuery, useGetAnnouncementByIdQuery}=announcementApi;

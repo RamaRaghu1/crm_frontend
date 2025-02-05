@@ -116,9 +116,9 @@ const users = user?.data?.isSuperUser ? (data.filter((el)=>el.branch ==user?.dat
       ),
     },
     { field: "email", headerName: "Email", flex: 1, minWidth: 150 },
-    { field: "position", headerName: "Position", flex: 1, minWidth: 150 },
-    { field: "team", headerName: "Team", flex: 1, minWidth: 100 },
-    { field: "branch", headerName: "Branch", flex: 1, minWidth: 100 },
+    { field: "position", headerName: "Position", flex: 0.75, minWidth: 100 },
+    { field: "team", headerName: "Team", flex: 0.5, minWidth: 50 },
+    { field: "branch", headerName: "Branch", flex: 0.5, minWidth: 50 },
     {
       field: "manage",
       headerName: "Manage",
@@ -176,7 +176,7 @@ const users = user?.data?.isSuperUser ? (data.filter((el)=>el.branch ==user?.dat
   }
 
   return (
-    <div className="w-[80vw] mx-auto">
+    <div className="w-[75vw] mx-auto">
       <div className="flex justify-between items-center mx-4 my-5">
         <h1 className="font-bold text-3xl text-blue-600">
           {isTeam ? "Admins" : "Employees"}

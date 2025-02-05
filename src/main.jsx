@@ -31,6 +31,10 @@ import AttendanceData from "./components/Project/AttendanceData.jsx";
 import SendMail from "./pages/SendMail.jsx";
 import Holiday from "./pages/Holiday.jsx";
 import Announcement from "./pages/Announcement.jsx";
+import AllHolidays from "./pages/Admin/AllHolidays.jsx";
+import AllAnnouncements from "./pages/Admin/AllAnnouncements.jsx";
+import EditHoliday from "./pages/Admin/EditHoliday.jsx";
+import EditAnnouncement from "./pages/Admin/EditAnnouncement.jsx";
 
 
 
@@ -64,6 +68,11 @@ const router = createBrowserRouter(
       <Route path="/send-mail" element={<SendMail />} />
       <Route path="/holiday" element={<Holiday />} />
       <Route path="/announcement" element={<Announcement />} />
+      <Route path="/all-holiday" element={<AllHolidays />} />
+      <Route path="/edit-holiday/:id" element={<EditHoliday />} />
+      <Route path="/all-announcements" element={<AllAnnouncements />} />
+      <Route path="/edit-announcement/:id" element={<EditAnnouncement />} />
+
       </Route>
     </Route>
   )
