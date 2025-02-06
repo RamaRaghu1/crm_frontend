@@ -53,10 +53,9 @@ const ProjectManagement = () => {
 
   const columns = ["To Do", "In Progress", "Completed"];
 
-  console.log("projectData", projectData);
-  console.log("projectById?.data", projectById?.data);
 
-  console.log(project);
+
+
   return (
     <div className="bg-indigo-200 h-[100%] w-[100%] ">
       <div className="bg-white shadow-sm">

@@ -79,7 +79,7 @@ let rows=[];
     
   })
 })}
-console.log(data)
+
   return (  <div className="min-h-screen bg-gray-100">
         <Sidebar data={userData?.data} />
         <main className="lg:ml-64 min-h-screen p-8">

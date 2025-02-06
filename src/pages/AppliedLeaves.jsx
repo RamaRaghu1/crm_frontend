@@ -19,13 +19,14 @@ const AppliedLeaves = () => {
   const { id } = useParams();
   const { data: userData, isSuccess, isLoading, error } = useLoadUserQuery();
 
-  const { data: leaveData, isSuccess: leaveDataSuccess, refetch } =
-    useGetLeavesByIdQuery(id);
+  const { data: leaveData, isSuccess: leaveDataSuccess, refetch }=useGetLeavesByIdQuery(id);
 
     useEffect(()=>{
       refetch();
     },[])
-  console.log("vgh", id);
+
+
+    console.log("leave===", leaveData)
   useEffect(() => {
     if (isSuccess && userData.success === true) {
       setUser(userData?.data);
@@ -38,7 +39,7 @@ const AppliedLeaves = () => {
     }
   }, [leaveDataSuccess, leaveData]);
 
-  console.log("leave", data);
+
 
   const columns = [
     { field: "no", headerName: "Sr no", flex: 0.5, minWidth: 50 },
@@ -67,29 +68,13 @@ const AppliedLeaves = () => {
         </span>
       ),
     },
-    // {
-    //   field: "actions",
-    //   headerName: "Actions",
-    //   flex: 1,
-    //   minWidth: 50,
-    //   renderCell: (params) => (
-    //     <button
-    //       className="text-blue-600"
-    //       onClick={() => console.log(`Edit leave with ID: ${params.row.id}`)}
-    //     >
-    //       <FaEdit size={20} />
-    //     </button>
-    //   ),
-    // },
-    // { field: "approvedBy", headerName: "Approved By", flex: 1, minWidth: 100 },
-    // { field: "approvedAt", headerName: "Approved At", flex: 1, minWidth: 100 },
-
+    
   ];
   const rows = [];
   {
     data &&
-      data.forEach((user) => {
-        user.leaveSets.forEach((leave, index) => {
+      data.forEach((leave, index) => {
+       
           rows.push({
             id: leave._id,
             no: index + 1,
@@ -105,7 +90,10 @@ const AppliedLeaves = () => {
           
           });
         });
-      });
+        rows.reverse();
+        rows.forEach((row, index) => {
+          row.no = index + 1; 
+        });
   }
   return (
     <div className="min-h-screen bg-gray-100">

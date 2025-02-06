@@ -21,7 +21,7 @@ export function EmployeeTasks() {
     }
   }, [isSuccess]);
 
-  console.log("thjguhj", tasks);
+
   const filteredTasks = tasks.filter((task) => {
     const matchesSearch = task.title
       .toLowerCase()

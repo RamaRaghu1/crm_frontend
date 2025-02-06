@@ -95,7 +95,7 @@ function ViewTask({ taskId, setOpen, refetch }) {
       taskId: task._id,
       status: newStatus,
     });
-    console.log(`Updating task ${task._id} status to ${newStatus}`);
+   
   };
 
   useEffect(() => {

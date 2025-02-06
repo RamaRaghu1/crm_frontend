@@ -48,7 +48,7 @@ export const leaveApi = apiSlice.injectEndpoints({
     }),
     getLeavesById:builder.query({
       query: (id) => ({
-        url: `/leave/leaves/${id}`,
+        url:`/leave/leaves/${id}`,
         method: "GET",
         credentials:"include",
       }),
@@ -63,10 +63,10 @@ export const leaveApi = apiSlice.injectEndpoints({
       }),
     }),
     deleteLeave:builder.mutation({
-      query: (data) => ({
+      query: (leaveId) => ({
         url:`/leave/delete-leave`,
         method:"POST",
-        body:data,
+        body:{leaveId},
         credentials:"include",
 
       }),

@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom'
 const EditHoliday = () => {
     const {id}=useParams();
     const {data}=useGetHolidayByIdQuery(id)
-    console.log("new",data?.data)
+
   return (
     <Holiday isEdit={true} existingHoliday={data?.data} id={id}/>
   )

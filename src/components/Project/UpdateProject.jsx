@@ -86,7 +86,7 @@ const UpdateProject = ({ setEditProjectOpen, project }) => {
       label: dt.name,
     }));
 
-    console.log("Selected Lead:", selectedLead);
+  
   return (
     <div className="bg-white rounded-lg h-full w-full">
       <div className="flex justify-between items-center p-6 border-b">

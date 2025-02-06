@@ -55,7 +55,7 @@ const AssignTask = ({ setCreateTaskOpen, project, refetch }) => {
   }, [selectedDeveloper, isSuccess]);
 
   const handleSubmit = async (e) => {
-    console.log(taskData);
+
     e.preventDefault();
     await createTask(taskData);
   };
@@ -81,7 +81,7 @@ const AssignTask = ({ setCreateTaskOpen, project, refetch }) => {
       label: dt.name,
     }));
 
-  // console.log(selectedLead, "nhhgjh");
+ 
   return (
     // <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4">
     <div className="bg-white rounded-lg h-full w-full">

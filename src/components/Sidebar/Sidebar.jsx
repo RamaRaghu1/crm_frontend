@@ -12,7 +12,7 @@ import toast from 'react-hot-toast';
 export  const Sidebar=({data})=> {
 
 
-  console.log("data__________", data)
+  
 
   const navigate=useNavigate();
   const [logOut, setLogOut] = useState(false);
@@ -66,7 +66,7 @@ if (data?.isAdmin) {
 
 navigation.push(  { name: 'Logout', icon: LogOut , href: '#' });
  const logOutHandler=()=>{
-  console.log("jkhgftuh")
+
   setLogOut(true);
 
 }

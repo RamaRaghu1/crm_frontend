@@ -1,5 +1,5 @@
-import React, { useState, FormEvent, useEffect } from "react";
-import { Calendar, FileText, AlertCircle, UserRound } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Calendar, FileText, AlertCircle } from "lucide-react";
 import "./LeaveForm.css";
 import { useApplyLeaveMutation } from "../../redux/features/leave/leaveApi";
 import { useLoadUserQuery } from "../../redux/features/api/apiSlice";
@@ -8,16 +8,36 @@ import { useNavigate } from "react-router-dom";
 
 const LeaveForm = () => {
   const navigate = useNavigate();
-const initailLeave= {
-  leaveType: "",
-  startDate: "",
-  endDate: "",
-  leaveReason: "",
-  leaveDuration: "",
-}
-  const [leaveDate, setLeaveDate] = useState([
-   initailLeave]
-  );
+
+  const initialLeave = {
+    leaveType: "",
+    startDate: "",
+    endDate: "",
+    leaveReason: "",
+    leaveDuration: "",
+  };
+
+  const [leaveDate, setLeaveDate] = useState(initialLeave);
+  const [loading, setLoading] = useState(false);
+
+  const { data: userData, isSuccess: userDataSuccess, refetch } = useLoadUserQuery();
+  const [applyLeave, { isSuccess, error, data }] = useApplyLeaveMutation();
+
+  useEffect(() => {
+    if (isSuccess && data) {
+      toast.success(data.message);
+      navigate(`/applied-leaves/${userData?.data?._id}`);
+    }
+    if (error && error.data?.message) {
+      toast.error(error.data.message);
+    }
+  }, [isSuccess, data, error, navigate, userData]);
+
+  useEffect(() => {
+    if (userDataSuccess) {
+      refetch();
+    }
+  }, [userDataSuccess, refetch]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -26,39 +46,18 @@ const initailLeave= {
       [name]: value,
     }));
   };
-  const [applyLeave, { isSuccess, error, data }] = useApplyLeaveMutation();
-  const { data: userData, isSuccess: userDataSuccess, refetch } = useLoadUserQuery();
-
-  useEffect(() => {
-    if (isSuccess && data) {
-      toast.success(data.message);
-      navigate(`/applied-leaves/${userData?.data?._id}`);
-    }
-
-    if (error) {
-      const errorMessage = error;
-      toast.error(errorMessage.data.message);
-    }
-  }, [isSuccess, data, error]);
-
-
-  
-  useEffect(() => {
-   refetch();
-  }, []);
-
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(leaveDate);
-    await applyLeave({
-      uid: userData?.data?._id,
-      employeeName: userData?.data?.name,
-      employeeId: userData?.data?.employeeId,
-      branch: userData?.data?.branch,
-      leaveDate,
-    });
+
+    if (!leaveDate.leaveType || !leaveDate.startDate || !leaveDate.endDate || !leaveDate.leaveReason || !leaveDate.leaveDuration) {
+      toast.error("Please fill in all required fields.");
+      return;
+    }
+
+    setLoading(true);
+    await applyLeave(leaveDate);
+    setLoading(false);
   };
 
   return (
@@ -69,13 +68,13 @@ const initailLeave= {
             <label className="form-label">
               Leave Type
               <select
-              required
+                required
                 name="leaveType"
                 value={leaveDate.leaveType}
                 onChange={handleChange}
                 className="form-select"
               >
-                <option value="" defaultValue >Select</option>
+                <option value="">Select</option>
                 <option value="casual-leave">Casual Leave</option>
                 <option value="sick-leave">Sick Leave</option>
                 <option value="unpaid-leave">Unpaid Leave</option>
@@ -85,24 +84,25 @@ const initailLeave= {
             <label className="form-label">
               Leave Duration
               <select
-              required
+                required
                 name="leaveDuration"
                 value={leaveDate.leaveDuration}
                 onChange={handleChange}
                 className="form-select"
               >
-                <option value="" defaultValue >Select</option>
+                <option value="">Select</option>
                 <option value="full-day">Full Day</option>
                 <option value="half-day">Half Day</option>
               </select>
             </label>
           </div>
+
           <div className="date-inputs">
             <label className="form-label">
               Start Date
               <div className="input-wrapper">
                 <input
-                required
+                  required
                   type="date"
                   name="startDate"
                   value={leaveDate.startDate}
@@ -117,7 +117,7 @@ const initailLeave= {
               End Date
               <div className="input-wrapper">
                 <input
-                required
+                  required
                   type="date"
                   name="endDate"
                   value={leaveDate.endDate}
@@ -133,7 +133,7 @@ const initailLeave= {
             Reason for Leave
             <div className="input-wrapper">
               <textarea
-              required
+                required
                 name="leaveReason"
                 value={leaveDate.leaveReason}
                 onChange={handleChange}
@@ -154,13 +154,15 @@ const initailLeave= {
         </div>
 
         <div className="form-actions">
-          <button className="button button-secondary" onClick={()=>setLeaveDate(initailLeave)
-          
-          }>
+          <button
+            type="button"
+            className="button button-secondary"
+            onClick={() => setLeaveDate(initialLeave)}
+          >
             Cancel
           </button>
-          <button type="submit" className="button button-primary">
-            Apply Leave
+          <button type="submit" className="button button-primary" disabled={loading}>
+            {loading ? "Submitting..." : "Apply Leave"}
           </button>
         </div>
       </form>

@@ -30,7 +30,7 @@ const Employees = ({ isTeam }) => {
       setData(userData.data);
     }
   }, [isSuccess]);
-  console.log(data);
+
 
 
   useEffect(() => {
@@ -82,7 +82,7 @@ const users = user?.data?.isSuperUser ? (data.filter((el)=>el.branch ==user?.dat
       isSuperUser,
     };
 
-    console.log("Submitting user data: ", userData);
+
     await upadteRole(userData)
     
   };
@@ -97,9 +97,7 @@ const users = user?.data?.isSuperUser ? (data.filter((el)=>el.branch ==user?.dat
       renderCell: (params) => (
         <div
           style={{ display: "flex", alignItems: "center", gap: "10px" }}
-          onClick={() => {
-            console.log(params);
-          }}
+         
         >
           <img
             src={params?.row?.image || userImg}
@@ -145,7 +143,7 @@ const users = user?.data?.isSuperUser ? (data.filter((el)=>el.branch ==user?.dat
 
   if (isTeam) {
     const newData = data && data.filter((item) => item.isSuperUser);
-    // console.log("newData", newData)
+
     newData.forEach((item, index) => {
       rows.push({
         id: item._id,

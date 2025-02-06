@@ -22,7 +22,7 @@ import { setupListeners } from "@reduxjs/toolkit/query/react";
 });
 
 
-console.log("storeeee", store.getState());
+
 
 
 const initializeApp = async () => {

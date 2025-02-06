@@ -58,7 +58,7 @@ const AttendanceData = () => {
     }
   }, [isSuccess, error]);
 
-  console.log(leaveSummary);
+  
   const handleData = async () => {
     try {
       const result = await summary(userrrr);

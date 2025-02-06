@@ -47,7 +47,7 @@ function Attendance() {
     }
   }, [attendanceData]);
 
-  console.log("atten", attendanceDataForDate);
+
   useEffect(() => {
     if (new Date(selectedDate) < new Date(now)) {
       setEditMode(false);
@@ -56,7 +56,7 @@ function Attendance() {
     }
 
     if (selectedDate) {
-      console.log("Fetching attendance for:", selectedDate);
+    
       getAttendanceData({ date: selectedDate });
     }
   }, [selectedDate, getAttendanceData, now]);
@@ -124,7 +124,7 @@ function Attendance() {
       flex: 2,
       minWidth: 400,
       renderCell: (params) => {
-        console.log(params);
+     
         return (
           <div className="flex space-x-2 py-3">
             <button

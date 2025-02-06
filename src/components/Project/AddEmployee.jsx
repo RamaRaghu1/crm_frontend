@@ -35,7 +35,7 @@ const AddEmployee = () => {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(employeeInfo);
+
     await addUser(employeeInfo);
   };
 

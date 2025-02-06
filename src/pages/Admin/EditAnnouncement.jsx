@@ -6,7 +6,7 @@ import { useGetAnnouncementByIdQuery } from '../../redux/features/announcement/a
 const EditAnnouncement = () => {
     const {id}=useParams();
     const {data}=useGetAnnouncementByIdQuery(id)
-    console.log("announ", data?.data);
+   
   return (
    <Announcement isEdit={true} selectedAnnouncement={data?.data} id={id}/>
   )

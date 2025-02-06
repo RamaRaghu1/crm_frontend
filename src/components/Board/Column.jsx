@@ -7,9 +7,9 @@ const Column= ({ column, data, setOpen,user}) => {
 //   const handleDragOver = (e: React.DragEvent) => {
 //     e.preventDefault();
 //   };
-console.log("jhggyuh", data)
+
 const filteredTasks = data?.filter((task) => task?.status === column);
-console.log(data,"inside column")
+
 
   return (
     <div

@@ -21,11 +21,8 @@ const PendingLeaves = () => {
   const [filter, setFilter] = useState("pending");
   const [data, setData] = useState();
 const [open , setOpen]=useState(false);
-const [args, setArgs]=useState({
-  employeeId:'',
-  leaveSetId:''
-})
-  console.log("jhgh", filter);
+const [leaveId, setLeaveId]=useState();
+
   const {
     data: leaveData,
     isSuccess: leaveSuccess,
@@ -49,7 +46,7 @@ const [args, setArgs]=useState({
     { data: deleteData, isSuccess: deleteSuccess, error: deleteError },
   ] = useDeleteLeaveMutation();
   const navigate = useNavigate();
-  console.log("jghfhgfy", data);
+
 
   useEffect(() => {
     if (approveSuccess && approveData.success) {
@@ -87,8 +84,8 @@ const [args, setArgs]=useState({
 
   const handleDelete = async (e) => {
     e.stopPropagation();
-    await deleteLeave(args);
-    console.log("clicked");
+    await deleteLeave(leaveId);
+   
   };
 
   const columns = [
@@ -120,7 +117,7 @@ const [args, setArgs]=useState({
       renderCell: (params) => {
         const { leaveStatus } = params.row;
 
-        console.log("row", params.row);
+       
         return (
           <div className="flex space-x-2 py-3">
             {leaveStatus !== "approved" && leaveStatus !== "rejected" && (
@@ -169,11 +166,11 @@ if(filter=="approved"){
     renderCell: (params) => {
       const { employeeId, id } = params.row;
 
-      console.log("row", params.row);
+     
       return (
         <button 
         // onClick={(e) => handleDelete(e,{ employeeId, leaveSetId: id })}
-        onClick={()=>{setOpen(!open); setArgs({ employeeId, leaveSetId: id })}}>
+        onClick={()=>{setOpen(!open); setLeaveId(id)}}>
           <AiOutlineDelete className={"text-black"} size={20} />
         </button>
       );
@@ -190,30 +187,33 @@ if(filter=="approved"){
     filteredData = rejectedLeaveData?.data || [];
   }
 
-  console.log("filtered", filteredData);
+
   const leavesRequests = userData?.data?.isSuperUser
     ? filteredData?.filter((el) => el.branch == userData?.data?.branch)
     : filteredData;
+
+
+
 
   const rows = [];
   {
     leavesRequests &&
       leavesRequests.forEach((employee, employeeIndex) => {
-        employee.leaveSets.forEach((leaveSet, leaveIndex) => {
+        
           rows.push({
-            id: leaveSet._id,
-            no: leaveIndex + 1,
-            employeeName: employee.employeeName,
-            employeeId: employee.employeeId,
-            startDate: new Date(leaveSet.startDate).toDateString(),
-            endDate: new Date(leaveSet.endDate).toDateString(),
-            leaveDays: leaveSet.leaveDays,
-            leaveType: leaveSet.leaveType,
-            leaveDuration: leaveSet.leaveDuration,
-            leaveStatus: leaveSet.leave_status,
+            id: employee._id,
+            no: employeeIndex + 1,
+            employeeName: employee.user_details.name,
+            employeeId: employee.user_details.employeeId,
+            startDate: new Date(employee.startDate).toDateString(),
+            endDate: new Date(employee.endDate).toDateString(),
+            leaveDays: employee.leaveDays,
+            leaveType: employee.leaveType,
+            leaveDuration: employee.leaveDuration,
+            leaveStatus: employee.leave_status,
           });
         });
-      });
+    
   }
 
   return (

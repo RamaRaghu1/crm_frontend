@@ -15,10 +15,7 @@ const authApi = apiSlice.injectEndpoints({
           const result = await queryFulfilled;
           const user = result.data.data?.user; // Adjust based on actual structure
           const accessToken = result.data.data?.accessToken;
-          console.log("Dispatching userLoggedIn...");
-          console.log("Full response:", result);
-          console.log(`user ${JSON.stringify(result.data.data.user)}`);
-          console.log(`token ${JSON.stringify(result.data.data.accessToken)}`);
+   
           dispatch(
             userLoggedIn({
               accessToken,

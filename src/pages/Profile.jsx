@@ -20,7 +20,7 @@ const Profile = () => {
 
   
   const [value, onChange] = useState(new Date())
-  console.log(data);
+
 
   useEffect(() => {
     if (isSuccess && userData.success === true) {

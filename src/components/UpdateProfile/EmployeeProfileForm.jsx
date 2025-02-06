@@ -31,7 +31,7 @@ export default function EmployeeProfileForm() {
     }
   }, [isSuccess]);
 
-  console.log("form", userData);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -54,11 +54,11 @@ export default function EmployeeProfileForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Form submitted:", formData);
+   
     await UpdateProfile({ id, formData });
   };
 
-  console.log("formsfsa", formData);
+
   useEffect(() => {
     if (updateSuccess && updateData.success) {
       toast.success(updateData.message);

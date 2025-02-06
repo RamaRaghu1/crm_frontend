@@ -39,7 +39,7 @@ const ProjectDetails = () => {
     userRefetch();
   }, []);
 
-  console.log("det", projectData);
+  
   useEffect(() => {
     if (isSuccess) {
       setProjectData(data?.data);
@@ -47,7 +47,7 @@ const ProjectDetails = () => {
   }, [isSuccess]);
 
   const handleCreateTask = async () => {
-    console.log("create task clicked");
+   
 
     // await createTask(data);
   };
