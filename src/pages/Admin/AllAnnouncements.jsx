@@ -1,21 +1,33 @@
 import React, { useEffect, useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
-
+import { Link } from "react-router-dom";
 import { IoMdAdd } from "react-icons/io";
 import { StepBack } from "lucide-react";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import { useDeleteAnnouncementMutation, useGetAllAnnouncementQuery } from "../../redux/features/announcement/announcementApi";
+import toast from "react-hot-toast";
+import {
+  useDeleteAnnouncementMutation,
+  useGetAllAnnouncementQuery,
+} from "../../redux/features/announcement/announcementApi";
 import { useNavigate } from "react-router-dom";
 import { Sidebar } from "../../components/Sidebar/Sidebar";
 import { useLoadUserQuery } from "../../redux/features/api/apiSlice";
 import NewModal from "../../utils/NewModal";
+
+
+
 const AllAnnouncements = () => {
-    const [open, setOpen]=useState(false);
+  const [open, setOpen] = useState(false);
+  const [announcementId, setAnnouncementId] = useState();
   const navigate = useNavigate();
-  const { data } = useGetAllAnnouncementQuery();
+  const { data, refetch } = useGetAllAnnouncementQuery(
+    {},
+    { refetchOnMountOrArgChange: true }
+  );
   const { data: userData } = useLoadUserQuery();
-  const [deleteAnnouncement, {isSuccess, error, data:deleteData}]=useDeleteAnnouncementMutation();
+  const [deleteAnnouncement, { isSuccess, error, data: deleteData }] =
+    useDeleteAnnouncementMutation();
   const columns = [
     { field: "no", headerName: "Sr. no", flex: 0.5, minWidth: 50 },
     { field: "title", headerName: "Title", flex: 0.75, minWidth: 100 },
@@ -30,14 +42,10 @@ const AllAnnouncements = () => {
       minWidth: 50,
       renderCell: (params) => {
         return (
-          <button
-            onClick={() => {
-              const announcementId = params.row.id;
-
-              navigate(`/edit-announcement/${announcementId}`);
-            }}
-          >
-            <FaEdit className={"text-black "} size={20} />
+          <button>
+            <Link to={`/edit-announcement/${params.row.id}`}>
+              <FaEdit className={"text-black "} size={20} />
+            </Link>
           </button>
         );
       },
@@ -51,9 +59,8 @@ const AllAnnouncements = () => {
         return (
           <button
             onClick={() => {
-              const announcementId = params.row.id;
-
-              navigate(`/edit-announcement/${announcementId}`);
+              setAnnouncementId(params.row.id);
+              setOpen(true);
             }}
           >
             <MdDelete className={"text-black "} size={20} />
@@ -63,10 +70,10 @@ const AllAnnouncements = () => {
     },
   ];
 
-
-  const handleDelete=()=>{
-
-  }
+  const handleDelete = async () => {
+    const id = announcementId;
+    await deleteAnnouncement(id);
+  };
 
   let rows = [];
 
@@ -83,6 +90,23 @@ const AllAnnouncements = () => {
       });
     });
   }
+
+
+
+  useEffect(() => {
+    if (isSuccess && deleteData.success) {
+      refetch();
+      setOpen(!open)
+      toast.success("Announcement deleted successfully!");
+    }
+
+    if (error) {
+   
+        const errorMessage = error;
+        toast.error(errorMessage.data.message);
+    
+    }
+  }, [isSuccess, error,setOpen]);
 
   return (
     <div className="min-h-screen bg-gray-100">
@@ -126,7 +150,6 @@ const AllAnnouncements = () => {
         </div>
       </main>
 
-
       {open && (
         <NewModal
           open={open}
@@ -136,7 +159,7 @@ const AllAnnouncements = () => {
               <h1
                 className={`md:text-[25px]  text-[20px] text-black  font-semibold font-poppins text-center py-2`}
               >
-                Are you sure you want to delete this Leave Request?
+                Are you sure you want to delete this Announcement?
               </h1>
               <div className="flex w-full items-center justify-evenly mb-6 mt-4">
                 <div

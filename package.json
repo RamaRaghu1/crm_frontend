@@ -21,6 +21,7 @@
     "formik": "^2.4.6",
     "js-cookie": "^3.0.5",
     "jwt-decode": "^4.0.0",
+    "lodash.set": "^4.3.2",
     "lucide": "^0.460.0",
     "lucide-react": "^0.460.0",
     "moment": "^2.30.1",

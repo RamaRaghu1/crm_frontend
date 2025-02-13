@@ -4,8 +4,8 @@ import FormSection from "../components/UpdateProfile/FormSection";
 import FormField from "../components/UpdateProfile/FormField";
 import { useAddAnnouncementMutation, useDeleteAnnouncementMutation, useUpdateAnnouncementMutation } from "../redux/features/announcement/announcementApi";
 import { useLoadUserQuery } from "../redux/features/api/apiSlice";
-
-
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -15,7 +15,7 @@ const Announcement = ({isEdit, selectedAnnouncement, id}) => {
   const {data:userData}=useLoadUserQuery();
 const[addannouncement, {isSuccess, error, data}]=useAddAnnouncementMutation();
 const[updateannouncement, {isSuccess:updateSuccess, error:updateError, data:updateData}]=useUpdateAnnouncementMutation();
-
+const navigate=useNavigate();
     const [announcementData, setannouncementData] = useState({
         title: "",
         priority: "",
@@ -37,7 +37,7 @@ const[updateannouncement, {isSuccess:updateSuccess, error:updateError, data:upda
         if(isEdit){
           await updateannouncement({id,data:announcementData })
         }else{
-          await addannouncement(announcemnentData)
+          await addannouncement(announcementData)
         }
        
       }
@@ -68,7 +68,7 @@ const[updateannouncement, {isSuccess:updateSuccess, error:updateError, data:upda
     if (updateSuccess && updateData.success) {
       toast.success(updateData.message);
       
-      navigate("/all-holiday");
+      navigate("/all-announcements");
     }
 
     if (updateError) {

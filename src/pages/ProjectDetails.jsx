@@ -18,7 +18,7 @@ const ProjectDetails = () => {
   const { data: user, refetch: userRefetch } = useLoadUserQuery({});
 
   const developers = userData?.data
-    .filter((dt) => dt.position.includes("developer"))
+    // .filter((dt) => dt.position.includes("developer"))
     .map((dt) => ({
       value: dt._id,
       label: dt.name,

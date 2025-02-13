@@ -20,9 +20,9 @@ export const holidayApi = apiSlice.injectEndpoints({
     }),
     deleteHoliday: builder.mutation({
         query: (id) => ({
-            url: "/holiday/delete-holiday",
+            url: `/holiday/delete-holiday/${id}`,
             method: "DELETE",
-            body: id,
+          
             credentials: "include",
           }),
     }),

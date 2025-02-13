@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Home, Settings, Users, BarChart2, HelpCircle,LogOut,Calendar,BookUser ,Mail  } from 'lucide-react';
+import { Menu, X, Home, Settings, Users, BarChart2,Drum, Flag,HelpCircle,LogOut,Calendar,BookUser ,Mail  } from 'lucide-react';
 import NavItem from './NavItem';
 import logo from "../../assets/logo.jpeg"
 import userImg from "../../assets/user.png";
@@ -60,8 +60,8 @@ if (data?.isAdmin) {
  
   navigation.push({ name: 'Manage Team', icon: BookUser, href: '/team' });
   navigation.push({ name: 'Send Mail', icon: Mail, href: '/send-mail' });
-  navigation.push({ name: 'Holidays', icon: Mail, href: '/all-holiday' });
-  navigation.push({ name: 'Announcements', icon: Mail, href: '/all-announcements' });
+  navigation.push({ name: 'Holidays', icon: Flag,  href: '/all-holiday' });
+  navigation.push({ name: 'Announcements', icon: Drum , href: '/all-announcements' });
 }
 
 navigation.push(  { name: 'Logout', icon: LogOut , href: '#' });

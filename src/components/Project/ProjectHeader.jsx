@@ -45,13 +45,13 @@ const ProjectHeader = ({
   };
 
   const handleDeleteProject = async () => {
-  const result=  await deleteProject( id );
+    const result = await deleteProject(id);
     console.log("Delete result:", result);
   };
 
   useEffect(() => {
     console.log("deleteSuccess:", deleteSuccess);
-  console.log("deleteData:", deleteData);
+    console.log("deleteData:", deleteData);
     if (deleteSuccess && deleteData?.success) {
       toast.success(deleteData.message || "Project deleted successfully.");
       setDeleteProjectOpen(false);
@@ -62,7 +62,6 @@ const ProjectHeader = ({
       toast.error(errorMessage);
     }
   }, [deleteSuccess, deleteData, deleteError]);
-  
 
   useEffect(() => {
     if (isSuccess && data?.success) {
@@ -72,35 +71,32 @@ const ProjectHeader = ({
       setOpen(false);
     }
 
-  
     if (error) {
       const errorMessage =
         error?.data?.message || "Failed to remove developer.";
       toast.error(errorMessage);
     }
-  }, [isSuccess, data, error, refetch, ]);
+  }, [isSuccess, data, error, refetch]);
 
   return (
     <div className=" flex gap-8 mb-8 md:mx-20 m-4">
-  {/* Project Details Section */}
-  <div className="w-full md:w-2/4 space-y-6">
-    <h1 className="text-3xl font-bold text-indigo-600">{title}</h1>
-    <p className="text-gray-600">{description}</p>
-    <div className="flex flex-wrap gap-4 text-sm text-gray-500">
-      <span>
-        <strong>Start:</strong> {new Date(startDate).toLocaleDateString()}
-      </span>
-      <span>
-        <strong>End:</strong> {new Date(endDate).toLocaleDateString()}
-      </span>
-    </div>
-  
-  </div>
+      {/* Project Details Section */}
+      <div className="w-full md:w-2/4 space-y-6">
+        <h1 className="text-3xl font-bold text-indigo-600">{title}</h1>
+        <p className="text-gray-600">{description}</p>
+        <div className="flex flex-wrap gap-4 text-sm text-gray-500">
+          <span>
+            <strong>Start:</strong> {new Date(startDate).toLocaleDateString()}
+          </span>
+          <span>
+            <strong>End:</strong> {new Date(endDate).toLocaleDateString()}
+          </span>
+        </div>
+      </div>
 
-  {/* Action Buttons Section */}
-  <div className="w-full md:w-2/4 space-y-6">
- 
-     <div className="p-4 bg-gray-50 rounded-lg shadow-md">
+      {/* Action Buttons Section */}
+      <div className="w-full md:w-2/4 space-y-6">
+        <div className="p-4 bg-gray-50 rounded-lg shadow-md">
           <h2 className="text-xl font-semibold text-gray-900">Project Lead</h2>
           <div className="flex items-center gap-4 mt-4">
             <img
@@ -115,62 +111,56 @@ const ProjectHeader = ({
               <p className="text-sm text-gray-500">{projectLeader?.position}</p>
             </div>
           </div>
+        </div>
+        {user && (user?.isSuperUser || projectLeader?._id === user?._id) && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Add Developer Button */}
+            <button
+              onClick={() => setAddDeveloperOpen(true)}
+              className="flex items-center gap-3 px-6 py-3 text-white bg-blue-500 rounded-lg shadow-lg hover:bg-blue-600 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-300 transition-all"
+            >
+              <UserPlus size={20} />
+              <span className="text-lg font-semibold">Add Developer</span>
+            </button>
+
+            {/* Add Task Button */}
+            <button
+              onClick={() => setCreateTaskOpen(true)}
+              className="flex items-center gap-3 px-6 py-3 text-white bg-green-500 rounded-lg shadow-lg hover:bg-green-600 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-green-300 transition-all"
+            >
+              <PlusIcon size={20} />
+              <span className="text-lg font-semibold">Add Task</span>
+            </button>
+
+            {/* Edit Project Button */}
+            <button
+              onClick={() => setEditProjectOpen(true)}
+              className="flex items-center gap-3 px-6 py-3 text-white bg-yellow-500 rounded-lg shadow-lg hover:bg-yellow-600 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-yellow-300 transition-all"
+            >
+              <Pencil size={20} />
+              <span className="text-lg font-semibold">Edit Project</span>
+            </button>
+
+            {/* Delete Project Button */}
+            <button
+              onClick={() => setDeleteProjectOpen(true)}
+              className="flex items-center gap-3 px-6 py-3 text-white bg-red-500 rounded-lg shadow-lg hover:bg-red-600 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-red-300 transition-all"
+            >
+              <DeleteIcon size={20} />
+              <span className="text-lg font-semibold">Delete Project</span>
+            </button>
           </div>
-    {user && (user?.isSuperUser || projectLeader?._id === user?._id) && (
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Add Developer Button */}
-        <button
-          onClick={() => setAddDeveloperOpen(true)}
-          className="flex items-center gap-3 px-6 py-3 text-white bg-blue-500 rounded-lg shadow-lg hover:bg-blue-600 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-300 transition-all"
-        >
-          <UserPlus size={20} />
-          <span className="text-lg font-semibold">Add Developer</span>
-        </button>
+        )}
 
-        {/* Add Task Button */}
-        <button
-          onClick={() => setCreateTaskOpen(true)}
-          className="flex items-center gap-3 px-6 py-3 text-white bg-green-500 rounded-lg shadow-lg hover:bg-green-600 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-green-300 transition-all"
-        >
-          <PlusIcon size={20} />
-          <span className="text-lg font-semibold">Add Task</span>
-        </button>
-
-        {/* Edit Project Button */}
-        <button
-          onClick={() => setEditProjectOpen(true)}
-          className="flex items-center gap-3 px-6 py-3 text-white bg-yellow-500 rounded-lg shadow-lg hover:bg-yellow-600 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-yellow-300 transition-all"
-        >
-          <Pencil size={20} />
-          <span className="text-lg font-semibold">Edit Project</span>
-        </button>
-
-        {/* Delete Project Button */}
-        <button
-          onClick={() => setDeleteProjectOpen(true)}
-          className="flex items-center gap-3 px-6 py-3 text-white bg-red-500 rounded-lg shadow-lg hover:bg-red-600 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-red-300 transition-all"
-        >
-          <DeleteIcon size={20} />
-          <span className="text-lg font-semibold">Delete Project</span>
-        </button>
-      </div>
-    )}
-
-
-
-
-
-    {/* Go Back Button */}
-    {/* <button
+        {/* Go Back Button */}
+        {/* <button
       onClick={() => navigate(-1)}
       className="flex items-center justify-center w-full gap-3 px-6 py-3 text-blue-600 bg-gray-100 border border-gray-300 rounded-lg shadow-lg hover:bg-gray-200 focus:outline-none focus:ring-4 focus:ring-gray-300 transition-all"
     >
       <StepBack size={20} />
       <span className="text-lg font-semibold">Go Back</span>
     </button> */}
-  </div>
-
-
+      </div>
 
       {createTaskOpen && (
         <CustomModel
@@ -186,14 +176,13 @@ const ProjectHeader = ({
         />
       )}
 
-{editProjectOpen&& (
+      {editProjectOpen && (
         <CustomModel
           open={editProjectOpen}
           setOpen={setEditProjectOpen}
           children={
             <UpdateProject
-            setEditProjectOpen={setEditProjectOpen}
-          
+              setEditProjectOpen={setEditProjectOpen}
               project={project}
             />
           }

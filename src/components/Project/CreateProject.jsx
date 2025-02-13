@@ -5,7 +5,7 @@ import toast from "react-hot-toast";
 import Select from "react-select";
 import { useCreateProjectMutation } from "../../redux/features/project/projectApi";
 
-const CreateProject = ({setOpen, refetch}) => {
+const CreateProject = ({ setOpen, refetch }) => {
   const [selectedDevelopers, setSelectedDevelopers] = useState([]);
   const [selectedLead, setSelectedLead] = useState({});
   const [projectData, setProjectData] = useState({
@@ -18,7 +18,8 @@ const CreateProject = ({setOpen, refetch}) => {
   });
   const { data } = useUsersListQuery();
 
-  const [CreateProject, { isSuccess,data:projectCreateData, error  }] = useCreateProjectMutation();
+  const [CreateProject, { isSuccess, data: projectCreateData, error }] =
+    useCreateProjectMutation();
 
   console.log(selectedDevelopers);
   const handleChange = (e) => {
@@ -44,20 +45,20 @@ const CreateProject = ({setOpen, refetch}) => {
   };
 
   useEffect(() => {
-    if (isSuccess && projectCreateData.success === true) {
-      toast.success(projectCreateData.message);
-refetch();
+    if (isSuccess && projectCreateData.success ) {
+      toast.success(projectCreateData?.message);
+      refetch();
       setOpen(false);
     }
 
     if (error) {
       const errorMessage = error;
-      toast.error(errorMessage.projectCreateData.message);
+      toast.error(errorMessage.projectCreateData?.message);
     }
   }, [isSuccess, projectCreateData, error]);
 
   const developers = data?.data
-    .filter((dt) => dt.position.includes("developer"))
+    // .filter((dt) => dt.position.includes("developer"))
     .map((dt) => ({
       value: dt._id,
       label: dt.name,

@@ -28,7 +28,8 @@ const [leaveId, setLeaveId]=useState();
     isSuccess: leaveSuccess,
     error,
     refetch,
-  } = useGetPendindLeaveRequestQuery();
+  } = useGetPendindLeaveRequestQuery({},
+    { refetchOnMountOrArgChange: true });
   const { data: approvedLeaveData } = useGetApprovedLeaveRequestQuery();
   const { data: rejectedLeaveData } = useGetRejectedLeaveRequestQuery();
   const [
@@ -72,12 +73,14 @@ const [leaveId, setLeaveId]=useState();
   }, [deleteSuccess, deleteError]);
 
   const handleApprove = async (leaveId) => {
+ 
     await approveOrRejectLeave({ leaveId, isApproved: true });
 
     setFilter("approved");
   };
 
   const handleReject = async (leaveId) => {
+
     await approveOrRejectLeave({ leaveId, isApproved: false });
     setFilter("rejected");
   };
@@ -97,8 +100,8 @@ const [leaveId, setLeaveId]=useState();
       minWidth: 150,
     },
     { field: "employeeId", headerName: "Employee ID", flex: 1, minWidth: 50 },
-    { field: "startDate", headerName: "Start Date", flex: 1, minWidth: 150 },
-    { field: "endDate", headerName: "End Date", flex: 1, minWidth: 150 },
+    { field: "startDate", headerName: "Start Date", flex: 1, minWidth: 100 },
+    { field: "endDate", headerName: "End Date", flex: 1, minWidth: 100 },
     { field: "leaveDays", headerName: "No of Days", flex: 1, minWidth: 50 },
     { field: "leaveType", headerName: "Leave Type", flex: 1, minWidth: 100 },
     // { field: "leaveStatus", headerName: "Leave Status", flex: 1, minWidth: 100 },
@@ -205,8 +208,8 @@ if(filter=="approved"){
             no: employeeIndex + 1,
             employeeName: employee.user_details.name,
             employeeId: employee.user_details.employeeId,
-            startDate: new Date(employee.startDate).toDateString(),
-            endDate: new Date(employee.endDate).toDateString(),
+            startDate: new Date(employee.startDate).toLocaleDateString(),
+            endDate: new Date(employee.endDate).toLocaleDateString(),
             leaveDays: employee.leaveDays,
             leaveType: employee.leaveType,
             leaveDuration: employee.leaveDuration,

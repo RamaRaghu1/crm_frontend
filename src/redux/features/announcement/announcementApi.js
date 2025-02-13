@@ -13,9 +13,8 @@ const announcementApi=apiSlice.injectEndpoints({
         }),
         deleteAnnouncement:builder.mutation({
             query:(id)=>({
-                url: "/announcement/delete-announcement",
+                url: `/announcement/delete-announcement/${id}`,
                 method: "DELETE",
-                body: id,
                 credentials:"include",
             })
         }),

@@ -68,7 +68,7 @@ const ProjectManagement = () => {
               </h1>
             </div>
             <div className="flex items-center space-x-4">
-              {user && user?.isSuperUser ? (
+              {user && (user?.isSuperUser  || user?.isAdmin) ? (
                 <>
                   {/* Create Project Button */}
                   <button

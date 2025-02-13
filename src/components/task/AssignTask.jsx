@@ -75,7 +75,7 @@ const AssignTask = ({ setCreateTaskOpen, project, refetch }) => {
   }, [createTaskSuccess, createTaskData, error]);
 
   const developer = data?.data
-    .filter((dt) => dt.position.includes("developer"))
+    // .filter((dt) => dt.position.includes("developer"))
     .map((dt) => ({
       value: dt._id,
       label: dt.name,
@@ -182,7 +182,7 @@ const AssignTask = ({ setCreateTaskOpen, project, refetch }) => {
         <div className="flex justify-end gap-3">
           <button
             type="button"
-            onClick={() => setOpen(false)}
+            onClick={() =>setCreateTaskOpen(false)}
             className="px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-md"
           >
             Cancel

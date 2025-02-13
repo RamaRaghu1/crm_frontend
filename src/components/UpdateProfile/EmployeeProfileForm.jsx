@@ -10,10 +10,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useLoadUserQuery } from "../../redux/features/api/apiSlice";
 import LeaveBalance from "../Leave/LeaveBalance";
-
+import { cloneDeep, set } from "lodash";
 export default function EmployeeProfileForm() {
   const { id } = useParams();
- const {data}=useLoadUserQuery();
+  const { data } = useLoadUserQuery();
   const [formData, setFormData] = useState({});
   const [errors, setErrors] = useState({});
 
@@ -26,43 +26,29 @@ export default function EmployeeProfileForm() {
 
   useEffect(() => {
     if (isSuccess && userData.success) {
-     
       setFormData(userData?.data);
     }
   }, [isSuccess]);
-
-
-
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, type, checked, value } = e.target;
+    
+    // Create a deep copy of formData to ensure mutability
     setFormData((prev) => {
-      const keys = name.split(".");
-      if (keys.length === 1) {
-        return { ...prev, [keys[0]]: value };
-      } else {
-        return {
-          ...prev,
-          [keys[0]]: {
-            ...prev[keys[0]],
-            [keys[1]]: value,
-          },
-        };
-      }
+      const newFormData = cloneDeep(prev); // Deep copy to avoid immutability issues
+      set(newFormData, name, type === "checkbox" ? checked : value);
+      return newFormData;
     });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-   
     await UpdateProfile({ id, formData });
   };
-
 
   useEffect(() => {
     if (updateSuccess && updateData.success) {
       toast.success(updateData.message);
-    location.reload()
+      location.reload();
       // navigate(`/profile/${id}`);
     }
   }, [updateSuccess, updateData]);
@@ -73,13 +59,12 @@ export default function EmployeeProfileForm() {
         <Sidebar data={data?.data} />
         <main className="lg:ml-64 min-h-screen p-8">
           <div className="app">
-          <div>
-                    <h1 className="text-2xl font-semibold text-gray-900 p-4">
-                      Leave Summary
-                    </h1>
-                 
-                  </div>
-          <LeaveBalance/>
+            <div>
+              <h1 className="text-2xl font-semibold text-gray-900 p-4">
+                Leave Summary
+              </h1>
+            </div>
+            <LeaveBalance />
             <main className="main-content">
               <form onSubmit={handleSubmit} className="max-w-3xl mx-auto py-8">
                 <div className="flex items-center space-x-4 mb-6">
@@ -91,7 +76,7 @@ export default function EmployeeProfileForm() {
       <User className="w-4 h-4 text-gray-500" />
     </button> */}
                   </div>
-                  
+
                   <div>
                     <h1 className="text-2xl font-semibold text-gray-900">
                       Update Profile
@@ -156,7 +141,6 @@ export default function EmployeeProfileForm() {
                     <FormField
                       label="Department"
                       name="team"
-                       
                       value={formData.team}
                       onChange={handleChange}
                       required
@@ -172,7 +156,6 @@ export default function EmployeeProfileForm() {
                     <FormField
                       label="Branch"
                       name="branch"
-                       
                       value={formData.branch}
                       onChange={handleChange}
                       component="select"
@@ -190,7 +173,6 @@ export default function EmployeeProfileForm() {
                     <FormField
                       label="Position"
                       name="position"
-                       
                       value={formData.position}
                       onChange={handleChange}
                       required
@@ -217,10 +199,7 @@ export default function EmployeeProfileForm() {
                       value={formData?.employmentStatus}
                       onChange={handleChange}
                       component="select"
-                      options={[
-                       "Active",
-                       "Inactive"
-                      ]}
+                      options={["Active", "Inactive"]}
                       required
                     />
                   </div>
@@ -285,6 +264,16 @@ export default function EmployeeProfileForm() {
                       required
                     />
                   </div>
+                </FormSection>
+
+                <FormSection title="Permissions">
+                  <FormField
+                    label="Manage leave requests"
+                    name="permissions.accessLeaveRequest"
+                    type="checkbox"
+                    value={formData?.permissions?.accessLeaveRequest || false}
+                    onChange={handleChange}
+                  />
                 </FormSection>
 
                 <div className="mt-6 flex justify-end">

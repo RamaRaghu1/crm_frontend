@@ -9,15 +9,29 @@ export default function FormField({
   readOnly,
   error,
   required = false,
-  component = "input", // 'input' or 'select'
-  options = [], // For select dropdowns
+  component = "input", 
+  options = [], 
 }) {
   return (
     <div>
       <label htmlFor={name} className="block text-sm font-medium text-gray-700">
         {label} {required && <span className="text-red-500">*</span>}
       </label>
-      {component === "input" ? (
+      {type === "checkbox" ? (
+        <div className="flex items-center space-x-2 mt-1">
+          <input
+            type="checkbox"
+            name={name}
+            id={name}
+            checked={value}
+            onChange={onChange}
+            className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500"
+          />
+          <label htmlFor={name} className="text-sm text-gray-700">
+            {label}
+          </label>
+        </div>
+      ) :  component === "input" ? (
         <input
           readOnly={readOnly}
           type={type}
